@@ -51,5 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7b7357e1cc141b7a66df8170cefcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialScreenController: {fileID: 0}
+  mainMenuScreenController: {fileID: 0}
   timerScreenController: {fileID: 0}
+  blogScreenController: {fileID: 0}
