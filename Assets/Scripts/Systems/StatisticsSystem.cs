@@ -24,8 +24,8 @@ public static class StatisticsSystem {
         }, ErrorCallback);
     }
 
-    public static void GetStatistic (string statisticName, Action<int> OnGetStatisticSuccess) {
-        var request = new GetPlayerStatisticsRequest { StatisticNames = new List<string> { statisticName } };
+    public static void GetStatistic (StatisticType statisticType, Action<int> OnGetStatisticSuccess) {
+        var request = new GetPlayerStatisticsRequest { StatisticNames = new List<string> { statisticType.ToString().ToLower() } };
         PlayFabClientAPI.GetPlayerStatistics(request, (result) => {
             if (result.Statistics == null || result.Statistics.Count == 0)
                 return;
@@ -34,9 +34,9 @@ public static class StatisticsSystem {
         }, ErrorCallback);
     }
 
-    public static void UpdateStatistic (string statisticName, int value, Action<UpdatePlayerStatisticsResult> OnUpdateStatisticSuccess = null) {
+    public static void UpdateStatistic (StatisticType statisticType, int value, Action<UpdatePlayerStatisticsResult> OnUpdateStatisticSuccess = null) {
         var request = new UpdatePlayerStatisticsRequest();
-        request.Statistics = new List<StatisticUpdate>() { new StatisticUpdate { StatisticName = statisticName, Value = value } };
+        request.Statistics = new List<StatisticUpdate>() { new StatisticUpdate { StatisticName = statisticType.ToString().ToLower(), Value = value } };
         PlayFabClientAPI.UpdatePlayerStatistics(request, OnUpdateStatisticSuccess ?? UpdateStatisticSuccessCallback, ErrorCallback);
     }
 

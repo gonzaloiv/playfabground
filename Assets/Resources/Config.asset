@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Name: Config
   m_EditorClassIdentifier: 
   PlayFabTitleId: 7FB6
+  DeviceId: 
+  MaxLeaderboardEntries: 10

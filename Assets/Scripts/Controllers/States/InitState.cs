@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace States {
 
@@ -20,12 +21,13 @@ namespace States {
 
         public void OnGetAppInfoSuccess (AppInfo appInfo) {
             app.SetInfo(appInfo);
-            StatisticsSystem.GetStatistic(StatisticType.Time.ToString().ToLower(), OnGetStatisticSuccess);
+            StatisticsSystem.GetStatistic(StatisticType.Time, OnGetStatisticSuccess);
+            VirtualCurrencySystem.GetVirtualCurrency(VirtualCurrencyCode.RP, player.SetRupees);
             footerController.Show(app.info);
             mainController.ToMainMenuState();
         }
 
-        public void OnGetStatisticSuccess(int time) {
+        public void OnGetStatisticSuccess (int time) {
             player.SetBestTime(time);
             player.SetLastTime(time);
         }
@@ -34,7 +36,7 @@ namespace States {
 
         #region Private Behaviour
 
-        private void InitUI() {
+        private void InitUI () {
             timerScreenController.Init();
             mainMenuScreenController.Init();
             blogScreenController.Init();

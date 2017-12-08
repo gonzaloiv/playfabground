@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Config {
+public static class Config {
 
     #region Fields / Properties
 
-	public static string DeviceId;
+    public static string DeviceId;
     public static string PlayFabTitleId;
     public static int MaxLeaderboardEntries;
 
@@ -14,7 +14,7 @@ public class Config {
     #region Mono Behaviour
 
     public static void Init (ConfigData configData) {
-        DeviceId = configData.DeviceId ?? SystemInfo.deviceUniqueIdentifier;
+        DeviceId = string.IsNullOrEmpty(configData.DeviceId) ? SystemInfo.deviceUniqueIdentifier : configData.DeviceId;
         PlayFabTitleId = configData.PlayFabTitleId;
         MaxLeaderboardEntries = configData.MaxLeaderboardEntries;
     }

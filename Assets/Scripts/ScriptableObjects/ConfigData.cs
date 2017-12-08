@@ -7,7 +7,7 @@ public class ConfigData : ScriptableObject {
 
     [Header("Game")]
     public string PlayFabTitleId = "7FB6";
-    public string DeviceId = "7FB6";
+    public string DeviceId;
 
     [Header("Statistics")]
     public int MaxLeaderboardEntries = 10;

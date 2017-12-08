@@ -1,17 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
+[Serializable]
 public class Player {
 
     #region Fields / Properties
 
+    public int rupees;
     public int bestTime;
     public int lastTime;
 
     #endregion
 
     #region Public Behaviour
+
+    public void SetRupees(int amount) {
+        this.rupees = amount;
+    }
+
+    public void DecreaseRupees(int amount = 1) {
+        this.rupees -= amount;
+    }
 
     public void SetLastTime(int time) {
         this.lastTime = time;
