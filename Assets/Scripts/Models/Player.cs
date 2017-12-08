@@ -8,6 +8,7 @@ public class Player {
 
     #region Fields / Properties
 
+    public PlayerInfo info = new PlayerInfo();
     public int rupees;
     public int bestTime;
     public int lastTime;
@@ -15,6 +16,10 @@ public class Player {
     #endregion
 
     #region Public Behaviour
+
+    public void SetPlayerInfo (PlayerInfo info) {
+        this.info = info;
+    }
 
     public void SetRupees(int amount) {
         this.rupees = amount;

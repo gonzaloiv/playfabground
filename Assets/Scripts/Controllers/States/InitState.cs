@@ -11,25 +11,33 @@ namespace States {
         public InitState (object parent) : base(parent) { }
 
         public override void Enter () {
-            UserSystem.Login(Config.DeviceId, OnLoginSuccess);
+            PlayerSystem.Login(Config.DeviceId, OnLoginSuccess);
             InitUI();
         }
 
         public void OnLoginSuccess () {
             DataSystem.GetAppInfo(OnGetAppInfoSuccess);
+            StatisticsSystem.GetStatistic(StatisticType.Time, OnGetStatisticSuccess);
+            VirtualCurrencySystem.GetVirtualCurrency(VirtualCurrencyCode.RP, player.SetRupees);
+            PlayerSystem.GetPlayerInfo(OnGetPlayerInfoSuccess);
         }
 
         public void OnGetAppInfoSuccess (AppInfo appInfo) {
             app.SetInfo(appInfo);
-            StatisticsSystem.GetStatistic(StatisticType.Time, OnGetStatisticSuccess);
-            VirtualCurrencySystem.GetVirtualCurrency(VirtualCurrencyCode.RP, player.SetRupees);
             footerController.Show(app.info);
-            mainController.ToMainMenuState();
         }
 
         public void OnGetStatisticSuccess (int time) {
             player.SetBestTime(time);
             player.SetLastTime(time);
+        }
+
+        public void OnGetPlayerInfoSuccess (PlayerInfo info) {
+            if (info != null)
+                player.SetPlayerInfo(info);
+            player.info.IncreaseGamesCount();
+            PlayerSystem.SetPlayerInfo(player.info);
+            mainController.ToMainMenuState();
         }
 
         #endregion

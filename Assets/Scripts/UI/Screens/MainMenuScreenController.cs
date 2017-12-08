@@ -8,6 +8,9 @@ public class MainMenuScreenController : ScreenController {
 
     #region Fields / Properties
 
+    [SerializeField] private Text playerNameText;
+    [SerializeField] private Text bestTimeText;
+    [SerializeField] private Text rupeesText;
     [SerializeField] private Button timerButton;
     [SerializeField] private Button blogButton;
     [SerializeField] private Button leaderboardButton;
@@ -29,6 +32,13 @@ public class MainMenuScreenController : ScreenController {
         timerButton.onClick.AddListener(InvokeTimerButtonClickEvent);
         blogButton.onClick.AddListener(InvokeBlogButtonClickEvent);
         leaderboardButton.onClick.AddListener(InvokeLeaderboardButtonClickEvent);
+    }
+
+    public void Show(Player player){
+        base.Show();
+        playerNameText.text = Config.DeviceId.Substring(0, 5); // Should be the PlayFab display name loaded from the method GetPlayerCombinedInfo()
+        bestTimeText.text = player.bestTime.ToString();
+        rupeesText.text = player.rupees.ToString();
     }
 
     public void InvokeTimerButtonClickEvent() {

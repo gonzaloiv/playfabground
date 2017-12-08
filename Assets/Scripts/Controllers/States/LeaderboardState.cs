@@ -32,7 +32,6 @@ namespace States {
             }
         }
 
-
         #endregion
 
     }

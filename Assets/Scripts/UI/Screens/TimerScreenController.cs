@@ -50,11 +50,11 @@ public class TimerScreenController : ScreenController {
 
     public override void Hide () {
         base.Hide();
-        seconds = 0;
         timer.Enabled = false;
     }
 
     public void OnTimerButtonClickEvent () {
+        seconds = 0;
         timer.Enabled = !timer.Enabled;
         if (!timer.Enabled)
             TimerStopEvent.Invoke(seconds);

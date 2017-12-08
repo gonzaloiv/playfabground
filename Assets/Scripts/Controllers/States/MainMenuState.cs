@@ -13,7 +13,7 @@ namespace States {
 
         public override void Enter () {
             base.Enter();
-            mainMenuScreenController.Show();
+            mainMenuScreenController.Show(player);
         }
 
         public override void Exit () {
