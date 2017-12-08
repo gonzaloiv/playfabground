@@ -10,11 +10,8 @@ namespace States {
         public InitState (object parent) : base(parent) { }
 
         public override void Enter () {
-            timerScreenController.Init();
-            mainMenuScreenController.Init();
-            blogScreenController.Init();
-            footerController.Init();
             UserSystem.Login(Config.DeviceId, OnLoginSuccess);
+            InitUI();
         }
 
         public void OnLoginSuccess () {
@@ -23,8 +20,26 @@ namespace States {
 
         public void OnGetAppInfoSuccess (AppInfo appInfo) {
             app.SetInfo(appInfo);
+            StatisticsSystem.GetStatistic(StatisticType.Time.ToString().ToLower(), OnGetStatisticSuccess);
             footerController.Show(app.info);
             mainController.ToMainMenuState();
+        }
+
+        public void OnGetStatisticSuccess(int time) {
+            player.SetBestTime(time);
+            player.SetLastTime(time);
+        }
+
+        #endregion
+
+        #region Private Behaviour
+
+        private void InitUI() {
+            timerScreenController.Init();
+            mainMenuScreenController.Init();
+            blogScreenController.Init();
+            leaderboardScreenController.Init();
+            footerController.Init();
         }
 
         #endregion

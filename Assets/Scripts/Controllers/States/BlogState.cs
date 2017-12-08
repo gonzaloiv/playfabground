@@ -26,6 +26,7 @@ namespace States {
         public void OnGetPostsSuccess (List<Post> posts) {
             app.SetPosts(posts);
             blogScreenController.Show(app.posts);
+            Debug.Log(JsonUtility.ToJson(app));
         }
 
         #endregion

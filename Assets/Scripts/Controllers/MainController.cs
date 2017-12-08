@@ -11,6 +11,7 @@ public class MainController : MonoBehaviour {
     public MainMenuScreenController mainMenuScreenController;
     public TimerScreenController timerScreenController;
     public BlogScreenController blogScreenController;
+    public LeaderboardScreenController leaderboardScreenController;
     public FooterController footerController;
     public App app;
 
@@ -27,6 +28,7 @@ public class MainController : MonoBehaviour {
         stateMachine.Register(new MainMenuState(this));
         stateMachine.Register(new TimerState(this));
         stateMachine.Register(new BlogState(this));
+        stateMachine.Register(new LeaderboardState(this));
     }
 
     private void Start () {
@@ -56,6 +58,10 @@ public class MainController : MonoBehaviour {
 
     public void ToBlogState () {
         stateMachine.ChangeState<BlogState>();
+    }
+
+    public void ToLeaderboardState () {
+        stateMachine.ChangeState<LeaderboardState>();
     }
 
     #endregion

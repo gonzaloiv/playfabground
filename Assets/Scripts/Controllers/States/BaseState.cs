@@ -12,8 +12,10 @@ namespace States {
         protected MainMenuScreenController mainMenuScreenController;
         protected TimerScreenController timerScreenController;
         protected BlogScreenController blogScreenController;
+        protected LeaderboardScreenController leaderboardScreenController;
         protected FooterController footerController;
-        protected App app { get { return mainController.app; } }
+        protected App app;
+        protected Player player;
         
         #endregion
         
@@ -24,7 +26,10 @@ namespace States {
             this.mainMenuScreenController = mainController.mainMenuScreenController;
             this.timerScreenController = mainController.timerScreenController;
             this.blogScreenController = mainController.blogScreenController;
+            this.leaderboardScreenController = mainController.leaderboardScreenController;
             this.footerController = mainController.footerController;
+            this.app = mainController.app;
+            this.player = app.player;
         }
         
         #endregion

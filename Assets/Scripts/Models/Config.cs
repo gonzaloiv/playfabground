@@ -7,14 +7,16 @@ public class Config {
 
 	public static string DeviceId;
     public static string PlayFabTitleId;
+    public static int MaxLeaderboardEntries;
 
     #endregion
 
     #region Mono Behaviour
 
     public static void Init (ConfigData configData) {
-        DeviceId = SystemInfo.deviceUniqueIdentifier;
+        DeviceId = configData.DeviceId ?? SystemInfo.deviceUniqueIdentifier;
         PlayFabTitleId = configData.PlayFabTitleId;
+        MaxLeaderboardEntries = configData.MaxLeaderboardEntries;
     }
 
     #endregion

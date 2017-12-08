@@ -29,6 +29,10 @@ namespace States {
             mainController.ToBlogState();
         }
 
+        public void OnLeaderboardButtonClickEvent(object sender, EventArgs e) {
+            mainController.ToLeaderboardState();
+        }
+
         #endregion
 
         #region Protected Behaviour
@@ -36,11 +40,13 @@ namespace States {
         protected override void AddListeners () {
             MainMenuScreenController.TimerButtonClickEvent += OnTimerButtonClickEvent;
             MainMenuScreenController.BlogButtonClickEvent += OnBlogButtonClickEvent;
+            MainMenuScreenController.LeaderboardButtonClickEvent += OnLeaderboardButtonClickEvent;
         }
 
         protected override void RemoveListeners () {
             MainMenuScreenController.TimerButtonClickEvent -= OnTimerButtonClickEvent;
             MainMenuScreenController.BlogButtonClickEvent -= OnBlogButtonClickEvent;
+            MainMenuScreenController.LeaderboardButtonClickEvent -= OnLeaderboardButtonClickEvent;
         }
 
         #endregion

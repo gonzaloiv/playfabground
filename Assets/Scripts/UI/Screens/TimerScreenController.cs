@@ -16,6 +16,14 @@ public class TimerScreenController : ScreenController {
 
     private readonly Timer timer = new Timer(SECOND); // It could be also achieved with the class StopWatch
     private int seconds;
+    private Player player;
+
+    #endregion
+
+    #region Events
+
+    public delegate void TimerStopEventHandler (int time);
+    public static event TimerStopEventHandler TimerStopEvent = delegate { };
 
     #endregion
 
@@ -35,6 +43,11 @@ public class TimerScreenController : ScreenController {
         timerButton.onClick.AddListener(OnTimerButtonClickEvent);
     }
 
+    public void Show (Player player) {
+        base.Show();
+        this.player = player;
+    }
+
     public override void Hide () {
         base.Hide();
         seconds = 0;
@@ -43,6 +56,8 @@ public class TimerScreenController : ScreenController {
 
     public void OnTimerButtonClickEvent () {
         timer.Enabled = !timer.Enabled;
+        if (!timer.Enabled)
+            TimerStopEvent.Invoke(seconds);
     }
 
     #endregion
