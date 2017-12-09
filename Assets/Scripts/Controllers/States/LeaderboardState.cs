@@ -11,7 +11,7 @@ namespace States {
         public LeaderboardState (object parent) : base(parent) { }
 
         public override void Enter () {
-            StatisticsSystem.GetLeaderboard(StatisticType.Time.ToString().ToLower(), OnGetLeaderboardSuccess);
+            StatisticService.GetLeaderboard(StatisticType.HourTime.ToString(), OnGetLeaderboardSuccess);
             if (app.leaderboardEntries == null) { // First time shows loader, rest of times, shows the already loaded entries
                 leaderboardScreenController.Load();
             } else {

@@ -3,37 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace States {
-    
+
     public class BaseState : State {
-        
+
         #region Fields
-        
+
         protected MainController mainController;
+        protected ViewController viewController;
         protected MainMenuScreenController mainMenuScreenController;
         protected TimerScreenController timerScreenController;
         protected BlogScreenController blogScreenController;
         protected LeaderboardScreenController leaderboardScreenController;
         protected FooterController footerController;
+        protected PopUpController popUpController;
         protected App app;
-        protected Player player;
-        
+
         #endregion
-        
+
         #region Public Behaviour
-        
+
         public BaseState (object parent) {
             this.mainController = (MainController) parent;
-            this.mainMenuScreenController = mainController.mainMenuScreenController;
-            this.timerScreenController = mainController.timerScreenController;
-            this.blogScreenController = mainController.blogScreenController;
-            this.leaderboardScreenController = mainController.leaderboardScreenController;
-            this.footerController = mainController.footerController;
+            this.viewController = mainController.viewController;
+            this.mainMenuScreenController = mainController.viewController.mainMenuScreenController;
+            this.timerScreenController = mainController.viewController.timerScreenController;
+            this.blogScreenController = mainController.viewController.blogScreenController;
+            this.leaderboardScreenController = mainController.viewController.leaderboardScreenController;
+            this.footerController = mainController.viewController.footerController;
+            this.popUpController = mainController.viewController.popUpController;
             this.app = mainController.app;
-            this.player = app.player;
         }
-        
+
         #endregion
-        
+
     }
 
 }

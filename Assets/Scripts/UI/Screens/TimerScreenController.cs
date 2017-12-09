@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System;
 using System.Timers;
 
-public class TimerScreenController : ScreenController {
+public class TimerScreenController : BaseScreenController {
 
     #region Fields / Properties
 
@@ -54,10 +54,10 @@ public class TimerScreenController : ScreenController {
     }
 
     public void OnTimerButtonClickEvent () {
-        seconds = 0;
         timer.Enabled = !timer.Enabled;
         if (!timer.Enabled)
             TimerStopEvent.Invoke(seconds);
+        seconds = 0;
     }
 
     #endregion

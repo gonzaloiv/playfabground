@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace States {
 
@@ -11,45 +12,26 @@ namespace States {
         public InitState (object parent) : base(parent) { }
 
         public override void Enter () {
-            PlayerSystem.Login(Config.DeviceId, OnLoginSuccess);
-            InitUI();
+            PlayerService.Login(Config.deviceId, OnLoginSuccess);
+            mainMenuScreenController.Load();
+            viewController.Init();
         }
 
         public void OnLoginSuccess () {
-            DataSystem.GetAppInfo(OnGetAppInfoSuccess);
-            StatisticsSystem.GetStatistic(StatisticType.Time, OnGetStatisticSuccess);
-            VirtualCurrencySystem.GetVirtualCurrency(VirtualCurrencyCode.RP, player.SetRupees);
-            PlayerSystem.GetPlayerInfo(OnGetPlayerInfoSuccess);
+            PlayerService.GetPlayer(OnGetPlayerSuccess);
+            DataService.GetAppData(OnGetAppInfoSuccess);
         }
 
-        public void OnGetAppInfoSuccess (AppInfo appInfo) {
-            app.SetInfo(appInfo);
-            footerController.Show(app.info);
-        }
-
-        public void OnGetStatisticSuccess (int time) {
-            player.SetBestTime(time);
-            player.SetLastTime(time);
-        }
-
-        public void OnGetPlayerInfoSuccess (PlayerInfo info) {
-            if (info != null)
-                player.SetPlayerInfo(info);
-            player.info.IncreaseGamesCount();
-            PlayerSystem.SetPlayerInfo(player.info);
+        public void OnGetPlayerSuccess (Player player) {
+            app.SetPlayer(player);
+            app.player.data.IncreaseGamesCount();
+            DataService.SetPlayerData(app.player.data);
             mainController.ToMainMenuState();
         }
 
-        #endregion
-
-        #region Private Behaviour
-
-        private void InitUI () {
-            timerScreenController.Init();
-            mainMenuScreenController.Init();
-            blogScreenController.Init();
-            leaderboardScreenController.Init();
-            footerController.Init();
+        public void OnGetAppInfoSuccess (AppData appData) {
+            app.SetInfo(appData);
+            footerController.Show(app.data);
         }
 
         #endregion

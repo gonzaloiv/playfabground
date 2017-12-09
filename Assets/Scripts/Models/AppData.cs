@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class AppInfo {
+public class AppData {
 
     #region Fields / Properties
 
@@ -14,9 +14,9 @@ public class AppInfo {
 
     #endregion
 
-    #region Public Behaviour 
+    #region Public Behaviour
 
-    public AppInfo (string version, string author, string company) {
+    public AppData(string version, string author, string company) {
         this.version = version;
         this.author = author;
         this.company = company;

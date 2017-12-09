@@ -6,12 +6,12 @@ using PlayFab.ClientModels;
 using System;
 using System.Linq;
 
-public static class StatisticsSystem {
+public class StatisticService : BaseService {
 
     #region Public Behaviour
 
     public static void GetLeaderboard (string statisticName, Action<List<LeaderboardEntry>> OnGetLeaderboardSuccess) {
-        var request = new GetLeaderboardRequest { StatisticName = statisticName, MaxResultsCount = Config.MaxLeaderboardEntries };
+        var request = new GetLeaderboardRequest { StatisticName = statisticName, MaxResultsCount = Config.maxLeaderboardEntries };
         PlayFabClientAPI.GetLeaderboard(request, (result) => {
             if (result.Leaderboard == null || result.Leaderboard.Count == 0) {
                 OnGetLeaderboardSuccess(null);
@@ -36,8 +36,16 @@ public static class StatisticsSystem {
 
     public static void UpdateStatistic (StatisticType statisticType, int value, Action<UpdatePlayerStatisticsResult> OnUpdateStatisticSuccess = null) {
         var request = new UpdatePlayerStatisticsRequest();
-        request.Statistics = new List<StatisticUpdate>() { new StatisticUpdate { StatisticName = statisticType.ToString().ToLower(), Value = value } };
+        request.Statistics = new List<StatisticUpdate>() { new StatisticUpdate { StatisticName = statisticType.ToString(), Value = value } };
         PlayFabClientAPI.UpdatePlayerStatistics(request, OnUpdateStatisticSuccess ?? UpdateStatisticSuccessCallback, ErrorCallback);
+    }
+
+    public static List<Statistic> StatisticsFromList (List<StatisticValue> statisticValues) {
+        if (statisticValues == null || statisticValues.Count == 0)
+            return null;
+        List<Statistic> statistics = new List<Statistic>();
+        statisticValues.ForEach(statistic => statistics.Add(new Statistic((StatisticType) Enum.Parse(typeof(StatisticType), statistic.StatisticName), statistic.Value)));
+        return statistics;
     }
 
     #endregion
@@ -56,10 +64,6 @@ public static class StatisticsSystem {
 
     private static void UpdateStatisticSuccessCallback<PlayFabResultCommon> (PlayFabResultCommon result) {
         Debug.Log("Statistic updated! " + (result as UpdatePlayerStatisticsResult).CustomData);
-    }
-
-    private static void ErrorCallback (PlayFabError error) {
-        Debug.Log(error.ToString());
     }
 
     #endregion

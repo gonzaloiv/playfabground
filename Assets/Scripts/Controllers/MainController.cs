@@ -8,13 +8,8 @@ public class MainController : MonoBehaviour {
 
     #region Fields / Properties
 
-    public MainMenuScreenController mainMenuScreenController;
-    public TimerScreenController timerScreenController;
-    public BlogScreenController blogScreenController;
-    public LeaderboardScreenController leaderboardScreenController;
-    public FooterController footerController;
+    public ViewController viewController;
     public App app;
-
     private readonly StateMachine stateMachine = new StateMachine();
 
     #endregion
@@ -22,7 +17,7 @@ public class MainController : MonoBehaviour {
     #region Mono Behaviour
 
     private void Awake () {
-		app = new App();
+        app = new App();
         Config.Init(Resources.Load("Config") as ConfigData);
         stateMachine.Register(new InitState(this));
         stateMachine.Register(new MainMenuState(this));
@@ -32,7 +27,7 @@ public class MainController : MonoBehaviour {
     }
 
     private void Start () {
-        stateMachine.ChangeState<InitState>();
+        stateMachine.NextState<InitState>();
     }
 
     private void Update () {
@@ -44,24 +39,24 @@ public class MainController : MonoBehaviour {
 
     #region Public Behaviour
 
-    public void ToPreviousState() {
-        stateMachine.Return();
+    public void ToPreviousState () {
+        stateMachine.PreviousState();
     }
 
     public void ToMainMenuState () {
-        stateMachine.ChangeState<MainMenuState>();
+        stateMachine.NextState<MainMenuState>();
     }
 
     public void ToTimerState () {
-        stateMachine.ChangeState<TimerState>();
+        stateMachine.NextState<TimerState>();
     }
 
     public void ToBlogState () {
-        stateMachine.ChangeState<BlogState>();
+        stateMachine.NextState<BlogState>();
     }
 
     public void ToLeaderboardState () {
-        stateMachine.ChangeState<LeaderboardState>();
+        stateMachine.NextState<LeaderboardState>();
     }
 
     #endregion

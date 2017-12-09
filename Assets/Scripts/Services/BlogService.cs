@@ -6,7 +6,7 @@ using PlayFab.ClientModels;
 using System;
 using System.Linq;
 
-public static class BlogSystem {
+public class BlogService : BaseService {
 
     #region Public Behaviour
 
@@ -14,8 +14,8 @@ public static class BlogSystem {
         var request = new GetTitleNewsRequest();
         PlayFabClientAPI.GetTitleNews(request, (result) => {
             List<Post> posts = new List<Post>();
-            result.News.ForEach(item => { posts.Add(new Post(item.NewsId, item.Timestamp, item.Title, item.Body)); } );
-            SuccessCallback(result);
+            result.News.ForEach(item => { posts.Add(new Post(item.NewsId, item.Timestamp, item.Title, item.Body)); });
+            GetPostsSuccessCallback(result);
             OnGetPostsSuccess(posts);
         }, ErrorCallback);
     }
@@ -24,12 +24,8 @@ public static class BlogSystem {
 
     #region Private Behaviour
 
-    private static void SuccessCallback<PlayFabResultCommon> (PlayFabResultCommon result) {
-        Debug.Log("You have " + (result as GetTitleNewsResult).News.Count + " news");
-    }
-
-    private static void ErrorCallback (PlayFabError error) {
-        Debug.Log(error.ToString());
+    private static void GetPostsSuccessCallback<PlayFabResultCommon> (PlayFabResultCommon result) {
+        Debug.Log("You have " + (result as GetTitleNewsResult).News.Count + " unread news");
     }
 
     #endregion

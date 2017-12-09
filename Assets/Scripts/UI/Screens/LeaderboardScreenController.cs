@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LeaderboardScreenController : ScreenController {
+public class LeaderboardScreenController : BaseScreenController  {
 
     #region Fields / Properties
 

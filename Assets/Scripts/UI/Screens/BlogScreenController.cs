@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class BlogScreenController : ScreenController {
+public class BlogScreenController : BaseScreenController  {
 
     #region Fields / Properties
 

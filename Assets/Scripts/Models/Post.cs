@@ -17,7 +17,7 @@ public class Post {
 
     #region Public Behaviour
 
-    public Post(string id, DateTime timestamp, string title, string body) {
+    public Post (string id, DateTime timestamp, string title, string body) {
         this.id = id;
         this.timestamp = timestamp;
         this.title = title;

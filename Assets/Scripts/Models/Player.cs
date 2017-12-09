@@ -2,43 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 [Serializable]
 public class Player {
 
     #region Fields / Properties
 
-    public PlayerInfo info = new PlayerInfo();
-    public int rupees;
-    public int bestTime;
-    public int lastTime;
+    public PlayerData data = new PlayerData();
+    public Inventory inventory = new Inventory();
+    public List<Currency> currencies = new List<Currency>();
+    public List<Statistic> statistics = new List<Statistic> { new Statistic(StatisticType.HourTime, 0) }; // Must be initizalied on Start
 
     #endregion
 
     #region Public Behaviour
 
-    public void SetPlayerInfo (PlayerInfo info) {
-        this.info = info;
+    public void SetData (PlayerData data) {
+        this.data = data;
     }
 
-    public void SetRupees(int amount) {
-        this.rupees = amount;
+    public void SetInventory (Inventory inventory) {
+        this.inventory = inventory;
     }
 
-    public void DecreaseRupees(int amount = 1) {
-        this.rupees -= amount;
+    public void SetCurrencies (List<Currency> currencies) {
+        this.currencies = currencies;
     }
 
-    public void SetLastTime(int time) {
-        this.lastTime = time;
+    public Currency GetCurrency (CurrencyCode code) {
+        return this.currencies.FirstOrDefault(currency => currency.code == code);
     }
 
-    public bool IsBestTime(int time) {
-        return time > bestTime;
+    public void SetCurrency (Currency currency) {
+        int index = this.currencies.IndexOf(currencies.FirstOrDefault(cur => cur.code == currency.code));
+        this.currencies[index] = currency;
     }
 
-    public void SetBestTime(int time) {
-        this.bestTime = time;
+    public void SetStatistics (List<Statistic> statistics) {
+        this.statistics = statistics;
+    }
+
+    public Statistic GetStatistic (StatisticType type) {
+        return this.statistics.FirstOrDefault(statistic => statistic.type == type);
+    }
+
+    public void SetStatistic (Statistic statistic) {
+        int index = this.statistics.IndexOf(statistics.FirstOrDefault(stat => stat.type == statistic.type));
+        this.statistics[index] = statistic;
     }
 
     #endregion

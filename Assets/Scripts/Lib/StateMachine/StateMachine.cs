@@ -8,7 +8,7 @@ public class StateMachine {
 
     #region Fields / Properties
 
-    public State CurrentState { get { return states.ContainsKey(current) ? states [current] : null; } }
+    public State CurrentState { get { return states.ContainsKey(current) ? states[current] : null; } }
 
     private Type previous = null;
     private Type current = null;
@@ -20,38 +20,38 @@ public class StateMachine {
 
     public void Register (State state) {
         if (state != null)
-            states [state.GetType()] = state;
+            states[state.GetType()] = state;
     }
 
     public void Unregister (Type type) {
         if (type == current)
-            ChangeState<State>();
+            NextState<State>();
         if (states.ContainsKey(type))
             states.Remove(type);
     }
 
     public void Clear () {
-        ChangeState<State>();
+        NextState<State>();
         states.Clear();
     }
 
-    public void ChangeState<T> () where T : State {
+    public void NextState<T> () where T : State {
         if (current != null)
-            states [current].Exit();
+            states[current].Exit();
         previous = current;
         current = typeof(T);
         if (states.ContainsKey(current))
-            states [current].Enter();
+            states[current].Enter();
     }
 
-    public void Return () {
+    public void PreviousState () {
         if (previous == null || current == null)
             return;
-        states [current].Exit();
+        states[current].Exit();
         Type temp = current;
         current = previous;
         previous = temp;
-        states [current].Enter();
+        states[current].Enter();
     }
 
     #endregion

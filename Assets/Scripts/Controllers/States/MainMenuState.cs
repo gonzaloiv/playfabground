@@ -13,7 +13,9 @@ namespace States {
 
         public override void Enter () {
             base.Enter();
-            mainMenuScreenController.Show(player);
+            mainMenuScreenController.Show(app.player);
+            if (app.player.inventory.HasPrizes)
+                RewardPlayer();
         }
 
         public override void Exit () {
@@ -29,7 +31,7 @@ namespace States {
             mainController.ToBlogState();
         }
 
-        public void OnLeaderboardButtonClickEvent(object sender, EventArgs e) {
+        public void OnLeaderboardButtonClickEvent (object sender, EventArgs e) {
             mainController.ToLeaderboardState();
         }
 
@@ -47,6 +49,19 @@ namespace States {
             MainMenuScreenController.TimerButtonClickEvent -= OnTimerButtonClickEvent;
             MainMenuScreenController.BlogButtonClickEvent -= OnBlogButtonClickEvent;
             MainMenuScreenController.LeaderboardButtonClickEvent -= OnLeaderboardButtonClickEvent;
+        }
+
+        #endregion
+
+        #region Private Behaviour
+
+        private void RewardPlayer () { // This could be a State by itself
+            Item prize = app.player.inventory.Prizes[0];
+            popUpController.Show("You've got a prize\n" + prize.name);
+            ItemService.ConsumeItem(prize, 1, delegate {
+                ItemService.GetInventory(app.player.SetInventory);
+                CurrencyService.GetCurrency(CurrencyCode.RP, app.player.SetCurrency);
+            });
         }
 
         #endregion

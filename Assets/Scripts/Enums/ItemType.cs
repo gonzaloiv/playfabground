@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum VirtualCurrencyCode {
-    RP
+public enum ItemType {
+    Prize,
+    Transport,
+    None
 }

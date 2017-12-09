@@ -15,11 +15,11 @@ public class FooterController : UIController {
 
     #region Public Behaviour
 
-    public void Show (AppInfo appInfo) {
+    public void Show (AppData appData) {
         base.Show();
-        versionText.text = appInfo.version.ToString();
-        authorText.text = appInfo.author;
-        companyText.text = appInfo.company;
+        versionText.text = appData.version.ToString();
+        authorText.text = appData.author;
+        companyText.text = appData.company;
     }
 
     #endregion

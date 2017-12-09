@@ -21,16 +21,18 @@ namespace States {
         }
 
         public void OnTimerStopEvent (int time) {
-            VirtualCurrencySystem.ConsumeVirtualCurrency(VirtualCurrencyCode.RP, OnConsumeVirtualCurrencySuccess);
-            player.SetLastTime(time);
-            if (player.IsBestTime(time)) {
-                player.SetBestTime(time);
-                StatisticsSystem.UpdateStatistic(StatisticType.Time, time);
+            CurrencyService.SubstractCurrency(CurrencyCode.RP, Config.ruppeesPerGame, OnSubstractVirtualCurrencySuccess);
+            Statistic playerTime = app.player.GetStatistic(StatisticType.HourTime);
+            playerTime.SetLastValue(time);
+            if (playerTime.IsBestValue(time)) {
+                playerTime.SetBestValue(time);
+                StatisticService.UpdateStatistic(StatisticType.HourTime, time);
             }
+            app.player.SetStatistic(playerTime);
         }
 
-        public void OnConsumeVirtualCurrencySuccess () {
-            VirtualCurrencySystem.GetVirtualCurrency(VirtualCurrencyCode.RP, player.SetRupees);
+        public void OnSubstractVirtualCurrencySuccess () {
+            CurrencyService.GetCurrency(CurrencyCode.RP, app.player.SetCurrency);
         }
 
         #endregion

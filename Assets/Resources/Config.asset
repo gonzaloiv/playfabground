@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9af1971fc2048b4965f513d3a2d0b6, type: 3}
   m_Name: Config
   m_EditorClassIdentifier: 
-  PlayFabTitleId: 7FB6
-  DeviceId: 
-  MaxLeaderboardEntries: 10
+  playFabTitleId: 7FB6
+  deviceId: 
+  ruppeesPerGame: 1
+  maxLeaderboardEntries: 10

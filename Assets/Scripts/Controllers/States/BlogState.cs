@@ -11,9 +11,9 @@ namespace States {
         public BlogState (object parent) : base(parent) { }
 
         public override void Enter () {
-            BlogSystem.GetPosts(OnGetPostsSuccess);
+            BlogService.GetPosts(OnGetPostsSuccess);
             if (app.posts == null) { // First time shows loader, rest of times, shows the already loaded posts
-                blogScreenController.Load();
+                blogScreenController.Load(); // TODO: Would be better a common loading state ?
             } else {
                 blogScreenController.Show(app.posts);
             }

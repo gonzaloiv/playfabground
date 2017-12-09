@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class MainMenuScreenController : ScreenController {
+public class MainMenuScreenController : BaseScreenController {
 
     #region Fields / Properties
 
@@ -36,9 +36,9 @@ public class MainMenuScreenController : ScreenController {
 
     public void Show(Player player){
         base.Show();
-        playerNameText.text = Config.DeviceId.Substring(0, 5); // Should be the PlayFab display name loaded from the method GetPlayerCombinedInfo()
-        bestTimeText.text = player.bestTime.ToString();
-        rupeesText.text = player.rupees.ToString();
+        playerNameText.text = Config.deviceId.Substring(0, 5); // Should be the PlayFab display name loaded from the method GetPlayerCombinedInfo()
+        bestTimeText.text = player.GetStatistic(StatisticType.HourTime).bestValue.ToString();
+        rupeesText.text = player.GetCurrency(CurrencyCode.RP).amount.ToString();
     }
 
     public void InvokeTimerButtonClickEvent() {

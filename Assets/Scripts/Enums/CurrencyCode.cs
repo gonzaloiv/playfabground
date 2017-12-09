@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StatisticType {
-    HourTime
+public enum CurrencyCode {
+    RP
 }

@@ -9,7 +9,7 @@ public class App {
 
     #region Fields / Properties
 
-    public AppInfo info;
+    public AppData data;
     public List<Post> posts;
     public List<LeaderboardEntry> leaderboardEntries; // This could located inside LeaderboardState...
     public Player player = new Player();
@@ -18,8 +18,8 @@ public class App {
 
     #region Public Behaviour
 
-    public void SetInfo (AppInfo info) {
-        this.info = info;
+    public void SetInfo (AppData data) {
+        this.data = data;
     }
 
     public void SetPosts (List<Post> posts) {
@@ -28,6 +28,10 @@ public class App {
 
     public void SetLeaderboardEntries (List<LeaderboardEntry> leaderboardEntries) {
         this.leaderboardEntries = leaderboardEntries;
+    }
+
+    public void SetPlayer(Player player) {
+        this.player = player;
     }
 
     #endregion

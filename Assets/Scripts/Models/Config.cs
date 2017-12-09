@@ -5,18 +5,20 @@ public static class Config {
 
     #region Fields / Properties
 
-    public static string DeviceId;
-    public static string PlayFabTitleId;
-    public static int MaxLeaderboardEntries;
+    public static string deviceId;
+    public static string playFabTitleId;
+    public static int ruppeesPerGame;
+    public static int maxLeaderboardEntries;
 
     #endregion
 
     #region Mono Behaviour
 
     public static void Init (ConfigData configData) {
-        DeviceId = string.IsNullOrEmpty(configData.DeviceId) ? SystemInfo.deviceUniqueIdentifier : configData.DeviceId;
-        PlayFabTitleId = configData.PlayFabTitleId;
-        MaxLeaderboardEntries = configData.MaxLeaderboardEntries;
+        deviceId = string.IsNullOrEmpty(configData.deviceId) ? SystemInfo.deviceUniqueIdentifier : configData.deviceId;
+        playFabTitleId = configData.playFabTitleId;
+        ruppeesPerGame = configData.ruppeesPerGame;
+        maxLeaderboardEntries = configData.maxLeaderboardEntries;
     }
 
     #endregion

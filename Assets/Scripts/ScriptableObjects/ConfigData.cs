@@ -6,10 +6,13 @@ using UnityEngine;
 public class ConfigData : ScriptableObject {
 
     [Header("Game")]
-    public string PlayFabTitleId = "7FB6";
-    public string DeviceId;
+    public string playFabTitleId = "7FB6";
+    public string deviceId;
+
+    [Header("Virtual Currency")]
+    public int ruppeesPerGame = 1;
 
     [Header("Statistics")]
-    public int MaxLeaderboardEntries = 10;
+    public int maxLeaderboardEntries = 10;
 
 }
