@@ -27,10 +27,12 @@ public class StatisticService : BaseService {
     public static void GetStatistic (StatisticType statisticType, Action<int> OnGetStatisticSuccess) {
         var request = new GetPlayerStatisticsRequest { StatisticNames = new List<string> { statisticType.ToString().ToLower() } };
         PlayFabClientAPI.GetPlayerStatistics(request, (result) => {
-            if (result.Statistics == null || result.Statistics.Count == 0)
+            if (result.Statistics == null || result.Statistics.Count == 0) {
                 return;
-            OnGetStatisticSuccess(result.Statistics[0].Value);
-            GetStatisticSuccessCallback(result);
+            } else {
+                OnGetStatisticSuccess(result.Statistics[0].Value);
+                GetStatisticSuccessCallback(result);
+            }
         }, ErrorCallback);
     }
 

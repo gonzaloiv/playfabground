@@ -14,6 +14,7 @@ namespace States {
         protected TimerScreenController timerScreenController;
         protected BlogScreenController blogScreenController;
         protected LeaderboardScreenController leaderboardScreenController;
+        protected JoystickScreenController joystickScreenController;
         protected FooterController footerController;
         protected PopUpController popUpController;
         protected App app;
@@ -29,6 +30,7 @@ namespace States {
             this.timerScreenController = mainController.viewController.timerScreenController;
             this.blogScreenController = mainController.viewController.blogScreenController;
             this.leaderboardScreenController = mainController.viewController.leaderboardScreenController;
+            this.joystickScreenController = mainController.viewController.joystickScreenController;
             this.footerController = mainController.viewController.footerController;
             this.popUpController = mainController.viewController.popUpController;
             this.app = mainController.app;

@@ -17,7 +17,7 @@ public class CurrencyService : BaseService {
                 OnGetCurrencySuccess(null);
             } else {
                 OnGetCurrencySuccess(new Currency(currencyCode, result.VirtualCurrency[currencyCode.ToString()]));
-                GetVirtualCurrencySuccessCallback(result);
+                GetCurrencySuccessCallback(result);
             }
         }, ErrorCallback);
     }
@@ -41,7 +41,7 @@ public class CurrencyService : BaseService {
 
     #region Private Behaviour
 
-    private static void GetVirtualCurrencySuccessCallback<PlayFabResultCommon> (PlayFabResultCommon result) {
+    private static void GetCurrencySuccessCallback<PlayFabResultCommon> (PlayFabResultCommon result) {
         var virtualCurrencies = (result as GetUserInventoryResult).VirtualCurrency;
         foreach (KeyValuePair<string, int> currency in virtualCurrencies)
             Debug.Log(currency.Key + " : " + currency.Value);

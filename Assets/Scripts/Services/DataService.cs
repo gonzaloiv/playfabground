@@ -35,8 +35,7 @@ public class DataService : BaseService {
     }
 
     public static void SetPlayerData (PlayerData playerData, Action OnSetPlayerDataSuccess = null) {
-        var request = new UpdateUserDataRequest();
-        request.Data = PlayerInfoToDictionary(playerData);
+        var request = new UpdateUserDataRequest{ Data = PlayerInfoToDictionary(playerData) };
         PlayFabClientAPI.UpdateUserData(request, (result) => {
             SetPlayerInfoSuccessCallback(result);
             if (OnSetPlayerDataSuccess != null)

@@ -35,6 +35,10 @@ namespace States {
             mainController.ToLeaderboardState();
         }
 
+        public void OnJoystickButtonClickEvent(object sender, EventArgs e) {
+            mainController.ToJoystickState();
+        }
+
         #endregion
 
         #region Protected Behaviour
@@ -43,12 +47,14 @@ namespace States {
             MainMenuScreenController.TimerButtonClickEvent += OnTimerButtonClickEvent;
             MainMenuScreenController.BlogButtonClickEvent += OnBlogButtonClickEvent;
             MainMenuScreenController.LeaderboardButtonClickEvent += OnLeaderboardButtonClickEvent;
+            MainMenuScreenController.JoystickButtonClickEvent += OnJoystickButtonClickEvent;
         }
 
         protected override void RemoveListeners () {
             MainMenuScreenController.TimerButtonClickEvent -= OnTimerButtonClickEvent;
             MainMenuScreenController.BlogButtonClickEvent -= OnBlogButtonClickEvent;
             MainMenuScreenController.LeaderboardButtonClickEvent -= OnLeaderboardButtonClickEvent;
+            MainMenuScreenController.JoystickButtonClickEvent -= OnJoystickButtonClickEvent;
         }
 
         #endregion

@@ -10,6 +10,7 @@ public class ViewController : MonoBehaviour {
     public TimerScreenController timerScreenController;
     public BlogScreenController blogScreenController;
     public LeaderboardScreenController leaderboardScreenController;
+    public JoystickScreenController joystickScreenController;
     public PopUpController popUpController;
     public FooterController footerController;
 
@@ -22,6 +23,7 @@ public class ViewController : MonoBehaviour {
         mainMenuScreenController.Init();
         blogScreenController.Init();
         leaderboardScreenController.Init();
+        joystickScreenController.Init();
         footerController.Init();
         popUpController.Init();
     }

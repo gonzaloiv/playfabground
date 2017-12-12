@@ -27,7 +27,7 @@ public class LeaderboardScreenController : BaseScreenController  {
 
     private void ShowLeaderboardEntry(LeaderboardEntry leaderboardEntry) {
         leaderboardEntryDisplayNameText.text = string.IsNullOrEmpty(leaderboardEntry.displayName) ? leaderboardEntry.playFabID.Substring(0, 5) : leaderboardEntry.displayName;
-        leaderboardEntryStatValueText.text = leaderboardEntry.statValue.ToString();
+        leaderboardEntryStatValueText.text = leaderboardEntry.value.ToString();
     }
 
     #endregion

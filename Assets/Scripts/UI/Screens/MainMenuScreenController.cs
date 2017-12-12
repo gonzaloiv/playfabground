@@ -14,6 +14,7 @@ public class MainMenuScreenController : BaseScreenController {
     [SerializeField] private Button timerButton;
     [SerializeField] private Button blogButton;
     [SerializeField] private Button leaderboardButton;
+    [SerializeField] private Button joystickButton;
 
     #endregion
 
@@ -22,6 +23,7 @@ public class MainMenuScreenController : BaseScreenController {
     public static event EventHandler TimerButtonClickEvent;
     public static event EventHandler BlogButtonClickEvent;
     public static event EventHandler LeaderboardButtonClickEvent;
+    public static event EventHandler JoystickButtonClickEvent;
 
     #endregion
 
@@ -32,6 +34,7 @@ public class MainMenuScreenController : BaseScreenController {
         timerButton.onClick.AddListener(InvokeTimerButtonClickEvent);
         blogButton.onClick.AddListener(InvokeBlogButtonClickEvent);
         leaderboardButton.onClick.AddListener(InvokeLeaderboardButtonClickEvent);
+        joystickButton.onClick.AddListener(InvokeJoystickButtonClickEvent);
     }
 
     public void Show(Player player){
@@ -51,6 +54,10 @@ public class MainMenuScreenController : BaseScreenController {
 
     public void InvokeLeaderboardButtonClickEvent () {
         LeaderboardButtonClickEvent.Invoke(leaderboardButton, null);
+    }
+
+    public void InvokeJoystickButtonClickEvent () {
+        JoystickButtonClickEvent.Invoke(joystickButton, null);
     }
 
     #endregion

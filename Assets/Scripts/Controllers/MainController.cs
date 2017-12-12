@@ -24,6 +24,7 @@ public class MainController : MonoBehaviour {
         stateMachine.Register(new TimerState(this));
         stateMachine.Register(new BlogState(this));
         stateMachine.Register(new LeaderboardState(this));
+        stateMachine.Register(new JoystickState(this));
     }
 
     private void Start () {
@@ -57,6 +58,10 @@ public class MainController : MonoBehaviour {
 
     public void ToLeaderboardState () {
         stateMachine.NextState<LeaderboardState>();
+    }
+
+    public void ToJoystickState() {
+        stateMachine.NextState<JoystickState>();
     }
 
     #endregion
