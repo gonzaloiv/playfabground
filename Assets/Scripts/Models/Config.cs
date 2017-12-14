@@ -6,6 +6,7 @@ public static class Config {
 
     #region Fields / Properties
 
+    public static LaunchMode launchMode;
     public static string deviceId;
     public static string playFabTitleId;
     public static int ruppeesPerGame;
@@ -16,6 +17,7 @@ public static class Config {
     #region Mono Behaviour
 
     public static void Init (ConfigData configData) {
+        launchMode = configData.launchMode;
         deviceId = string.IsNullOrEmpty(configData.deviceId) ? SystemInfo.deviceUniqueIdentifier : configData.deviceId;
         playFabTitleId = configData.playFabTitleId;
         ruppeesPerGame = configData.ruppeesPerGame;

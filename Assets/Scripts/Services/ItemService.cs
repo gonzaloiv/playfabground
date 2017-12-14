@@ -4,27 +4,35 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 using System;
-
+using RSG;
 
 public class ItemService : BaseService {
 
     #region Public Behaviour
 
-    public static void GetInventory (Action<Inventory> OnGetInventorySuccess) {
+    public static Promise<Inventory> GetInventory () {
+        var promise = new Promise<Inventory>();
         var request = new GetUserInventoryRequest();
         PlayFabClientAPI.GetUserInventory(request, (result) => {
-            Inventory inventory = InventoryFromItemInstanceList(result.Inventory);
-            if (OnGetInventorySuccess != null && inventory != null) OnGetInventorySuccess(inventory);
-            SuccessCallback(result);
+            try {
+                Inventory inventory = InventoryFromItemInstanceList(result.Inventory);
+                SuccessCallback(result);
+                promise.Resolve(inventory);
+            } catch (Exception ex) {
+                promise.Reject(ex);
+            }
         }, ErrorCallback);
+        return promise;
     }
 
-    public static void ConsumeItem (Item item, int count, Action OnPurchaseItemSuccess = null) {
-        var request = new ConsumeItemRequest { ItemInstanceId = item.instanceID , ConsumeCount = count};
+    public static Promise ConsumeItem (Item item, int count) {
+        var promise = new Promise();
+        var request = new ConsumeItemRequest { ItemInstanceId = item.instanceID, ConsumeCount = count };
         PlayFabClientAPI.ConsumeItem(request, (result) => {
-            if (OnPurchaseItemSuccess != null) OnPurchaseItemSuccess();
+            promise.Resolve();
             SuccessCallback(result);
         }, ErrorCallback);
+        return promise;
     }
 
     public static Inventory InventoryFromItemInstanceList (List<ItemInstance> itemInstances) {

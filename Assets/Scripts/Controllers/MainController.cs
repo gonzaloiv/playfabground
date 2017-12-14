@@ -60,7 +60,7 @@ public class MainController : MonoBehaviour {
         stateMachine.NextState<LeaderboardState>();
     }
 
-    public void ToJoystickState() {
+    public void ToJoystickState () {
         stateMachine.NextState<JoystickState>();
     }
 

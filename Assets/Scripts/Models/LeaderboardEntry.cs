@@ -11,7 +11,7 @@ public class LeaderboardEntry {
     public int position;
     public string playFabID;
     public string displayName;
-    public int value; // This is mesured in seconds
+    public int value; // This is measured in seconds
 
     #endregion
 

@@ -43,7 +43,7 @@ public class JoystickController : UIController, IBeginDragHandler, IDragHandler,
     public void OnEndDrag(PointerEventData data) {
         // dragObject.localPosition = originalPanelLocalPosition;
         UpdateAxis(Vector2.zero);
-        dragObject.DOLocalMove(originalPanelLocalPosition, 0.3f).SetEase(Ease.OutBounce);
+        dragObject.DOLocalMove(originalPanelLocalPosition, 0.3f).SetEase(Ease.OutBack);
     }
 
     #endregion

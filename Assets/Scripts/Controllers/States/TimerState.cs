@@ -21,18 +21,10 @@ namespace States {
         }
 
         public void OnTimerStopEvent (int time) {
-            CurrencyService.SubstractCurrency(CurrencyCode.RP, Config.ruppeesPerGame, OnSubstractVirtualCurrencySuccess);
-            Statistic playerTime = app.player.GetStatistic(StatisticType.HourTime);
-            playerTime.SetLastValue(time);
-            if (playerTime.IsBestValue(time)) {
-                playerTime.SetBestValue(time);
-                StatisticService.UpdateStatistic(StatisticType.HourTime, time);
-            }
-            app.player.SetStatistic(playerTime);
-        }
-
-        public void OnSubstractVirtualCurrencySuccess () {
-            CurrencyService.GetCurrency(CurrencyCode.RP, app.player.SetCurrency);
+            CurrencyService.SubstractCurrency(CurrencyCode.RP, Config.ruppeesPerGame)
+                           .Then(() => CurrencyService.GetCurrency(CurrencyCode.RP))
+                           .Then(currency => app.player.SetCurrency(currency));
+            SetPlayerTime(time);
         }
 
         #endregion
@@ -45,6 +37,20 @@ namespace States {
 
         protected override void RemoveListeners () {
             TimerScreenController.TimerStopEvent -= OnTimerStopEvent;
+        }
+
+        #endregion
+
+        #region Private Behavriour
+
+        private void SetPlayerTime(int time) {
+            Statistic playerTime = app.player.GetStatistic(StatisticType.HourTime);
+            playerTime.SetLastValue(time);
+            if (playerTime.IsBestValue(time)) {
+                playerTime.SetBestValue(time);
+                StatisticService.UpdateStatistic(StatisticType.HourTime, time);
+            }
+            app.player.SetStatistic(playerTime);
         }
 
         #endregion

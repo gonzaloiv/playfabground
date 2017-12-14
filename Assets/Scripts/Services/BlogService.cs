@@ -5,19 +5,22 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System;
 using System.Linq;
+using RSG;
 
 public class BlogService : BaseService {
 
     #region Public Behaviour
 
-    public static void GetPosts (Action<List<Post>> OnGetPostsSuccess) {
+    public static IPromise<List<Post>> GetPosts () {
+        var promise = new Promise<List<Post>>();
         var request = new GetTitleNewsRequest();
         PlayFabClientAPI.GetTitleNews(request, (result) => {
             List<Post> posts = new List<Post>();
             result.News.ForEach(item => { posts.Add(new Post(item.NewsId, item.Timestamp, item.Title, item.Body)); });
+            promise.Resolve(posts);
             GetPostsSuccessCallback(result);
-            OnGetPostsSuccess(posts);
         }, ErrorCallback);
+        return promise;
     }
 
     #endregion

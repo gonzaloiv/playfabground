@@ -35,7 +35,7 @@ namespace States {
             mainController.ToLeaderboardState();
         }
 
-        public void OnJoystickButtonClickEvent(object sender, EventArgs e) {
+        public void OnJoystickButtonClickEvent (object sender, EventArgs e) {
             mainController.ToJoystickState();
         }
 
@@ -64,10 +64,13 @@ namespace States {
         private void RewardPlayer () { // This could be a State by itself
             Item prize = app.player.inventory.Prizes[0];
             popUpController.Show("You've got a prize\n" + prize.name);
-            ItemService.ConsumeItem(prize, 1, delegate {
-                ItemService.GetInventory(app.player.SetInventory);
-                CurrencyService.GetCurrency(CurrencyCode.RP, app.player.SetCurrency);
-            });
+            ItemService.ConsumeItem(prize, 1)
+                       .Then(() => {
+                           ItemService.GetInventory()
+                                      .Then(inventory => app.player.SetInventory(inventory));
+                           CurrencyService.GetCurrency(CurrencyCode.RP)
+                                          .Then(currency => app.player.SetCurrency(currency));
+                       });
         }
 
         #endregion

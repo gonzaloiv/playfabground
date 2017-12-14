@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class InputSystem : MonoBehaviour {
+public class InputSystem : Singleton<InputSystem> {
 
     #region Fields / Properties
 
-    public static readonly InputSystem Instance = new InputSystem();
     public bool w, a, s, d;
     public float xAxis, yAxis;
 

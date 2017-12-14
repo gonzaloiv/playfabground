@@ -12,7 +12,7 @@ public class Player {
     public PlayerData data = new PlayerData();
     public Inventory inventory = new Inventory();
     public List<Currency> currencies = new List<Currency>();
-    public List<Statistic> statistics = new List<Statistic> { new Statistic(StatisticType.HourTime, 0) }; // Must be initizalied on Start
+    public List<Statistic> statistics = new List<Statistic> { new Statistic(StatisticType.HourTime, 0) }; // Must be initialized on Start
 
     #endregion
 

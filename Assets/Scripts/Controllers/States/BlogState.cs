@@ -11,7 +11,10 @@ namespace States {
         public BlogState (object parent) : base(parent) { }
 
         public override void Enter () {
-            BlogService.GetPosts(OnGetPostsSuccess);
+            BlogService.GetPosts().Then((posts) => {
+                app.SetPosts(posts);
+                blogScreenController.Show(app.posts);
+            });
             if (app.posts == null) { // First time shows loader, rest of times, shows the already loaded posts
                 blogScreenController.Load(); // TODO: Would be better a common loading state ?
             } else {
@@ -21,12 +24,6 @@ namespace States {
 
         public override void Exit () {
             blogScreenController.Hide();
-        }
-
-        public void OnGetPostsSuccess (List<Post> posts) {
-            app.SetPosts(posts);
-            blogScreenController.Show(app.posts);
-            Debug.Log(JsonUtility.ToJson(app));
         }
 
         #endregion

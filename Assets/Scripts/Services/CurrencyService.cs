@@ -5,29 +5,35 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System;
 using System.Linq;
+using RSG;
 
 public class CurrencyService : BaseService {
 
     #region Public Behaviour
 
-    public static void GetCurrency (CurrencyCode currencyCode, Action<Currency> OnGetCurrencySuccess) {
+    public static IPromise<Currency> GetCurrency (CurrencyCode currencyCode) {
+        var promise = new Promise<Currency>();
         var request = new GetUserInventoryRequest();
         PlayFabClientAPI.GetUserInventory(request, (result) => {
-            if (result.VirtualCurrency == null || !result.VirtualCurrency.ContainsKey(currencyCode.ToString())) {
-                OnGetCurrencySuccess(null);
-            } else {
-                OnGetCurrencySuccess(new Currency(currencyCode, result.VirtualCurrency[currencyCode.ToString()]));
+            try {
+                Currency currency = new Currency(currencyCode, result.VirtualCurrency[currencyCode.ToString()]);
+                promise.Resolve(currency);
                 GetCurrencySuccessCallback(result);
+            } catch (Exception ex){
+                promise.Reject(ex);
             }
         }, ErrorCallback);
+        return promise;
     }
 
-    public static void SubstractCurrency (CurrencyCode currencyCode, int amount, Action OnConsumeCurrencySuccess = null) {
+    public static IPromise SubstractCurrency (CurrencyCode currencyCode, int amount) {
+        var promise = new Promise();
         var request = new SubtractUserVirtualCurrencyRequest { VirtualCurrency = currencyCode.ToString(), Amount = amount };
         PlayFabClientAPI.SubtractUserVirtualCurrency(request, (result) => {
-            OnConsumeCurrencySuccess();
             SuccessCallback(result);
+            promise.Resolve();
         }, ErrorCallback);
+        return promise;
     }
 
     public static List<Currency> CurrenciesFromDictionary (Dictionary<string, int> currencyPairs) {

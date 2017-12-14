@@ -5,42 +5,50 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System;
 using System.Linq;
+using RSG;
 
 public class DataService : BaseService {
 
     #region Public Behaviour
 
-    public static void GetAppData (Action<AppData> OnGetAppDataSuccess) {
+    public static IPromise<AppData> GetAppData () {
+        var promise = new Promise<AppData>();
         var request = new GetTitleDataRequest { Keys = new List<string> { "AppInfo" } };
         PlayFabClientAPI.GetTitleData(request, (result) => {
-            if (result.Data == null || !result.Data.ContainsKey("AppInfo"))
-                return;
-            AppData appData = JsonUtility.FromJson<AppData>(result.Data["AppInfo"]);
-            OnGetAppDataSuccess(appData);
-            GetAppInfoSuccessCallback(result);
-        }, ErrorCallback);
-    }
-
-    public static void GetPlayerData (Action<PlayerData> OnGetPlayerDataSuccess) {
-        var request = new GetUserDataRequest();
-        PlayFabClientAPI.GetUserData(request, (result) => {
-            if (result == null || result.Data.Count == 0) {
-                OnGetPlayerDataSuccess(null);
-            } else {
-                PlayerData playerData = PlayerInfoFromDictionary(result.Data);
-                OnGetPlayerDataSuccess(playerData);
-                GetPlayerInfoSuccessCallback(result);
+            try {
+                AppData appData = JsonUtility.FromJson<AppData>(result.Data["AppInfo"]);
+                promise.Resolve(appData);
+                GetAppInfoSuccessCallback(result);
+            } catch (Exception ex) {
+                promise.Reject(ex);
             }
         }, ErrorCallback);
+        return promise;
     }
 
-    public static void SetPlayerData (PlayerData playerData, Action OnSetPlayerDataSuccess = null) {
-        var request = new UpdateUserDataRequest{ Data = PlayerInfoToDictionary(playerData) };
+    public static Promise<PlayerData> GetPlayerData () {
+        var promise = new Promise<PlayerData>();
+        var request = new GetUserDataRequest();
+        PlayFabClientAPI.GetUserData(request, (result) => {
+            try {
+                PlayerData playerData = PlayerInfoFromDictionary(result.Data);
+                GetPlayerInfoSuccessCallback(result);
+                promise.Resolve(playerData);
+            } catch (Exception ex) {
+                promise.Reject(ex);
+            }
+        }, ErrorCallback);
+        return promise;
+    }
+
+    public static Promise SetPlayerData (PlayerData playerData) {
+        var promise = new Promise();
+        var request = new UpdateUserDataRequest { Data = PlayerInfoToDictionary(playerData) };
         PlayFabClientAPI.UpdateUserData(request, (result) => {
             SetPlayerInfoSuccessCallback(result);
-            if (OnSetPlayerDataSuccess != null)
-                OnSetPlayerDataSuccess();
+            promise.Resolve();
         }, ErrorCallback);
+        return promise;
     }
 
     public static Dictionary<string, string> PlayerInfoToDictionary (PlayerData playerData) {
@@ -50,7 +58,7 @@ public class DataService : BaseService {
     }
 
     public static PlayerData PlayerInfoFromDictionary (Dictionary<string, UserDataRecord> resultData) {
-        if (resultData == null || resultData.Count == 0)
+        if (resultData != null && resultData[PlayerData.FieldName.GamesCount.ToString()] != null) 
             return null;
         return new PlayerData(int.Parse(resultData[PlayerData.FieldName.GamesCount.ToString()].Value));
     }

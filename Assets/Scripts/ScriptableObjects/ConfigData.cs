@@ -6,7 +6,8 @@ using UnityEngine;
 public class ConfigData : ScriptableObject {
 
     [Header("Game")]
-    public string playFabTitleId = "7FB6";
+    public LaunchMode launchMode;
+    public string playFabTitleId;
     public string deviceId;
 
     [Header("Virtual Currency")]
