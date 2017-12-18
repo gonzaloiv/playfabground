@@ -20,6 +20,7 @@ public class MainController : MonoBehaviour {
         app = new App();
         Config.Init(Resources.Load("Config") as ConfigData);
         stateMachine.Register(new InitState(this));
+        stateMachine.Register(new LoginState(this));
         stateMachine.Register(new MainMenuState(this));
         stateMachine.Register(new TimerState(this));
         stateMachine.Register(new BlogState(this));
@@ -42,6 +43,10 @@ public class MainController : MonoBehaviour {
 
     public void ToPreviousState () {
         stateMachine.PreviousState();
+    }
+
+    public void ToLoginState () {
+        stateMachine.NextState<LoginState>();
     }
 
     public void ToMainMenuState () {

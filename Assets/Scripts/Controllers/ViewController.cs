@@ -6,6 +6,7 @@ public class ViewController : MonoBehaviour {
 
     #region Fields / Properties
 
+    public LoginScreenController loginScreenController;
     public MainMenuScreenController mainMenuScreenController;
     public TimerScreenController timerScreenController;
     public BlogScreenController blogScreenController;
@@ -19,6 +20,7 @@ public class ViewController : MonoBehaviour {
     #region Public Behaviour
 
     public void Init () {
+        loginScreenController.Init();
         timerScreenController.Init();
         mainMenuScreenController.Init();
         blogScreenController.Init();

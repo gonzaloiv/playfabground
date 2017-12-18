@@ -11,7 +11,7 @@ public class DataService : BaseService {
 
     #region Public Behaviour
 
-    public static IPromise<AppData> GetAppData () {
+    public static Promise<AppData> GetAppData () {
         var promise = new Promise<AppData>();
         var request = new GetTitleDataRequest { Keys = new List<string> { "AppInfo" } };
         PlayFabClientAPI.GetTitleData(request, (result) => {
@@ -31,7 +31,7 @@ public class DataService : BaseService {
         var request = new GetUserDataRequest();
         PlayFabClientAPI.GetUserData(request, (result) => {
             try {
-                PlayerData playerData = PlayerInfoFromDictionary(result.Data);
+                PlayerData playerData = PlayerDataFromDictionary(result.Data);
                 GetPlayerInfoSuccessCallback(result);
                 promise.Resolve(playerData);
             } catch (Exception ex) {
@@ -43,7 +43,7 @@ public class DataService : BaseService {
 
     public static Promise SetPlayerData (PlayerData playerData) {
         var promise = new Promise();
-        var request = new UpdateUserDataRequest { Data = PlayerInfoToDictionary(playerData) };
+        var request = new UpdateUserDataRequest { Data = PlayerDataToDictionary(playerData) };
         PlayFabClientAPI.UpdateUserData(request, (result) => {
             SetPlayerInfoSuccessCallback(result);
             promise.Resolve();
@@ -51,16 +51,18 @@ public class DataService : BaseService {
         return promise;
     }
 
-    public static Dictionary<string, string> PlayerInfoToDictionary (PlayerData playerData) {
+    public static Dictionary<string, string> PlayerDataToDictionary (PlayerData playerData) {
         return new Dictionary<string, string> {
             { PlayerData.FieldName.GamesCount.ToString(), playerData.gamesCount.ToString() }
         };
     }
 
-    public static PlayerData PlayerInfoFromDictionary (Dictionary<string, UserDataRecord> resultData) {
-        if (resultData != null && resultData[PlayerData.FieldName.GamesCount.ToString()] != null) 
+    public static PlayerData PlayerDataFromDictionary (Dictionary<string, UserDataRecord> resultData) {
+        if (resultData != null && resultData[PlayerData.FieldName.GamesCount.ToString()] != null)
             return null;
-        return new PlayerData(int.Parse(resultData[PlayerData.FieldName.GamesCount.ToString()].Value));
+        return new PlayerData(
+            int.Parse(resultData[PlayerData.FieldName.GamesCount.ToString()].Value)
+        );
     }
 
     #endregion

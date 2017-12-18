@@ -10,6 +10,7 @@ namespace States {
 
         protected MainController mainController;
         protected ViewController viewController;
+        protected LoginScreenController loginScreenController;
         protected MainMenuScreenController mainMenuScreenController;
         protected TimerScreenController timerScreenController;
         protected BlogScreenController blogScreenController;
@@ -26,6 +27,7 @@ namespace States {
         public BaseState (object parent) {
             this.mainController = (MainController) parent;
             this.viewController = mainController.viewController;
+            this.loginScreenController = mainController.viewController.loginScreenController;
             this.mainMenuScreenController = mainController.viewController.mainMenuScreenController;
             this.timerScreenController = mainController.viewController.timerScreenController;
             this.blogScreenController = mainController.viewController.blogScreenController;

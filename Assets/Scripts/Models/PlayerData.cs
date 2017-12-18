@@ -8,11 +8,11 @@ public class PlayerData {
 
     #region Fields / Properties
 
-    public enum FieldName {
-        GamesCount // C# 6's nameof(MyField) is not around...
+    public enum FieldName { // C# 6's nameof(MyField) is not around...
+        GamesCount
     }
 
-    public int gamesCount = 0;
+    public int gamesCount;
 
     #endregion
 

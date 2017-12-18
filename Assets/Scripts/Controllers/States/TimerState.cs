@@ -43,7 +43,7 @@ namespace States {
 
         #region Private Behavriour
 
-        private void SetPlayerTime(int time) {
+        private void SetPlayerTime (int time) {
             Statistic playerTime = app.player.GetStatistic(StatisticType.HourTime);
             playerTime.SetLastValue(time);
             if (playerTime.IsBestValue(time)) {

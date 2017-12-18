@@ -23,7 +23,7 @@ public class PlayerService : BaseService {
 
     public static Promise LoginWithFacebook () {
         var promise = new Promise();
-        FB.LogInWithReadPermissions(null, (loginResult) => {
+        FB.LogInWithReadPermissions(new List<string> { "user_location" }, (loginResult) => {
             try {
                 var request = new LoginWithFacebookRequest { CreateAccount = true, AccessToken = AccessToken.CurrentAccessToken.TokenString };
                 PlayFabClientAPI.LoginWithFacebook(request, (result) => { promise.Resolve(); }, ErrorCallback);
@@ -48,13 +48,41 @@ public class PlayerService : BaseService {
                 if (statistics != null) player.SetStatistics(statistics);
                 Inventory inventory = ItemService.InventoryFromItemInstanceList(result.InfoResultPayload.UserInventory);
                 if (inventory != null) player.SetInventory(inventory);
-                PlayerData playerData = DataService.PlayerInfoFromDictionary(result.InfoResultPayload.UserData);
+                PlayerData playerData = DataService.PlayerDataFromDictionary(result.InfoResultPayload.UserData);
                 if (playerData != null) player.SetData(playerData);
                 GetPlayerSuccessBallback(result);
                 promise.Resolve(player);
             } catch (Exception ex) {
                 promise.Reject(ex);
             }
+        }, ErrorCallback);
+        return promise;
+    }
+
+    public static Promise<string> GetFacebookPictureURL (string facebookID = null) {
+        var promise = new Promise<string>();
+        FB.API("/" + (facebookID == null ? "me" : facebookID) + "?fields=picture.type(large)", HttpMethod.GET, (result => {
+            // REF: https://graph.facebook.com/517267866/?fields=picture&type=large
+            // REF: https://www.reddit.com/r/Unity3D/comments/4gxg08/how_to_get_the_users_profile_picture_using_the/
+            string pictureURL = null;
+            IDictionary<string, object> pictureResult;
+            if (result.ResultDictionary.TryGetValue("picture", out pictureResult)) {
+                string PictureUrl = string.Empty;
+                IDictionary<string, object> dataResult;
+                if (pictureResult.TryGetValue("data", out dataResult))
+                    dataResult.TryGetValue("url", out pictureURL);
+            }
+            promise.Resolve(pictureURL);
+        }));
+        return promise;
+    }
+
+    public static Promise UpdatePlayerAvatarURL (string playerAvatarUrl) {
+        var promise = new Promise();
+        var request = new UpdateAvatarUrlRequest { ImageUrl = playerAvatarUrl };
+        PlayFabClientAPI.UpdateAvatarUrl(request, (result) => {
+            promise.Resolve();
+            SuccessCallback(result);
         }, ErrorCallback);
         return promise;
     }

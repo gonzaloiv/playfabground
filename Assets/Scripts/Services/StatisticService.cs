@@ -11,13 +11,22 @@ public class StatisticService : BaseService {
     #region Public Behaviour
 
     public static void GetLeaderboard (string statisticName, Action<List<LeaderboardEntry>> OnGetLeaderboardSuccess) {
+        var requestParams = new GetPlayerCombinedInfoRequestParams { GetPlayerProfile = true };
         var request = new GetLeaderboardRequest { StatisticName = statisticName, MaxResultsCount = Config.maxLeaderboardEntries };
+        request.ProfileConstraints = new PlayerProfileViewConstraints { ShowAvatarUrl = true, ShowLocations = true };
         PlayFabClientAPI.GetLeaderboard(request, (result) => {
             if (result.Leaderboard == null || result.Leaderboard.Count == 0) {
                 OnGetLeaderboardSuccess(null);
             } else {
                 List<LeaderboardEntry> entries = new List<LeaderboardEntry>();
-                result.Leaderboard.ForEach(entry => entries.Add(new LeaderboardEntry(entry.Position, entry.PlayFabId, entry.DisplayName, entry.StatValue)));
+                result.Leaderboard.ForEach(entry => {
+                    LeaderboardEntry newEntry = new LeaderboardEntry(entry.Position, entry.PlayFabId, entry.DisplayName, entry.StatValue);
+                    if (!string.IsNullOrEmpty(entry.Profile.AvatarUrl))
+                        newEntry.SetAvatarURL(entry.Profile.AvatarUrl);
+                    if (entry.Profile.Locations != null)
+                        newEntry.SetCity(entry.Profile.Locations[0].City);
+                    entries.Add(newEntry);
+                });
                 GetLeaderboardSuccessCallback(result);
                 OnGetLeaderboardSuccess(entries);
             }

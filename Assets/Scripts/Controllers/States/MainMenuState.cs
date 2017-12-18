@@ -64,13 +64,10 @@ namespace States {
         private void RewardPlayer () { // This could be a State by itself
             Item prize = app.player.inventory.Prizes[0];
             popUpController.Show("You've got a prize\n" + prize.name);
-            ItemService.ConsumeItem(prize, 1)
-                       .Then(() => {
-                           ItemService.GetInventory()
-                                      .Then(inventory => app.player.SetInventory(inventory));
-                           CurrencyService.GetCurrency(CurrencyCode.RP)
-                                          .Then(currency => app.player.SetCurrency(currency));
-                       });
+            ItemService.ConsumeItem(prize, 1).Then(() => {
+                ItemService.GetInventory().Then(inventory => app.player.SetInventory(inventory));
+                CurrencyService.GetCurrency(CurrencyCode.RP).Then(currency => app.player.SetCurrency(currency));
+            });
         }
 
         #endregion

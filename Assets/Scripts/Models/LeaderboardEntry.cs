@@ -12,16 +12,26 @@ public class LeaderboardEntry {
     public string playFabID;
     public string displayName;
     public int value; // This is measured in seconds
+    public string avatarURL;
+    public string city;
 
     #endregion
 
     #region Public Behaviour
 
-    public LeaderboardEntry(int position, string playFabID, string displayName, int value) {
+    public LeaderboardEntry (int position, string playFabID, string displayName, int value, string avatarURL = null) {
         this.position = position;
         this.playFabID = playFabID;
         this.displayName = displayName;
         this.value = value;
+    }
+
+    public void SetAvatarURL (string avatarURL) {
+        this.avatarURL = avatarURL;
+    }
+
+    public void SetCity (string city) {
+        this.city = city;
     }
 
     #endregion

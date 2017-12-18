@@ -11,7 +11,7 @@ public class CurrencyService : BaseService {
 
     #region Public Behaviour
 
-    public static IPromise<Currency> GetCurrency (CurrencyCode currencyCode) {
+    public static Promise<Currency> GetCurrency (CurrencyCode currencyCode) {
         var promise = new Promise<Currency>();
         var request = new GetUserInventoryRequest();
         PlayFabClientAPI.GetUserInventory(request, (result) => {
@@ -26,7 +26,7 @@ public class CurrencyService : BaseService {
         return promise;
     }
 
-    public static IPromise SubstractCurrency (CurrencyCode currencyCode, int amount) {
+    public static Promise SubstractCurrency (CurrencyCode currencyCode, int amount) {
         var promise = new Promise();
         var request = new SubtractUserVirtualCurrencyRequest { VirtualCurrency = currencyCode.ToString(), Amount = amount };
         PlayFabClientAPI.SubtractUserVirtualCurrency(request, (result) => {

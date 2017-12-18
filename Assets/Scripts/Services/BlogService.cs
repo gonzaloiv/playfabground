@@ -11,7 +11,7 @@ public class BlogService : BaseService {
 
     #region Public Behaviour
 
-    public static IPromise<List<Post>> GetPosts () {
+    public static Promise<List<Post>> GetPosts () {
         var promise = new Promise<List<Post>>();
         var request = new GetTitleNewsRequest();
         PlayFabClientAPI.GetTitleNews(request, (result) => {
