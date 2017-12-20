@@ -15,6 +15,8 @@ public class MainMenuScreenController : BaseScreenController {
     [SerializeField] private Button blogButton;
     [SerializeField] private Button leaderboardButton;
     [SerializeField] private Button joystickButton;
+    [SerializeField] private Button cloudButton;
+    [SerializeField] private Button swipeButton;
 
     #endregion
 
@@ -24,6 +26,8 @@ public class MainMenuScreenController : BaseScreenController {
     public static event EventHandler BlogButtonClickEvent;
     public static event EventHandler LeaderboardButtonClickEvent;
     public static event EventHandler JoystickButtonClickEvent;
+    public static event EventHandler CloudButtonClickEvent;
+    public static event EventHandler SwipeButtonClickEvent;
 
     #endregion
 
@@ -35,16 +39,18 @@ public class MainMenuScreenController : BaseScreenController {
         blogButton.onClick.AddListener(InvokeBlogButtonClickEvent);
         leaderboardButton.onClick.AddListener(InvokeLeaderboardButtonClickEvent);
         joystickButton.onClick.AddListener(InvokeJoystickButtonClickEvent);
+        cloudButton.onClick.AddListener(InvokeCloudButtonClickEvent);
+        swipeButton.onClick.AddListener(InvokeSwipeButtonClickEvent);
     }
 
-    public void Show(Player player){
+    public void Show (Player player) {
         base.Show();
         playerNameText.text = Config.deviceId.Substring(0, 5); // Should be the PlayFab display name loaded from the method GetPlayerCombinedInfo()
         bestTimeText.text = player.GetStatistic(StatisticType.HourTime).bestValue.ToString();
         rupeesText.text = player.GetCurrency(CurrencyCode.RP).amount.ToString();
     }
 
-    public void InvokeTimerButtonClickEvent() {
+    public void InvokeTimerButtonClickEvent () {
         TimerButtonClickEvent.Invoke(timerButton, null);
     }
 
@@ -58,6 +64,14 @@ public class MainMenuScreenController : BaseScreenController {
 
     public void InvokeJoystickButtonClickEvent () {
         JoystickButtonClickEvent.Invoke(joystickButton, null);
+    }
+
+    public void InvokeCloudButtonClickEvent () {
+        CloudButtonClickEvent.Invoke(cloudButton, null);
+    }
+
+    public void InvokeSwipeButtonClickEvent () {
+        SwipeButtonClickEvent.Invoke(swipeButton, null);
     }
 
     #endregion

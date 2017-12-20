@@ -11,25 +11,17 @@ namespace States {
         public LeaderboardState (object parent) : base(parent) { }
 
         public override void Enter () {
-            StatisticService.GetLeaderboard(StatisticType.HourTime.ToString(), OnGetLeaderboardSuccess);
-            if (app.leaderboardEntries == null) { // First time shows loader, rest of times, shows the already loaded entries
-                leaderboardScreenController.Load();
-            } else {
-                leaderboardScreenController.Show(app.leaderboardEntries);
-            }
+            StatisticService.GetLeaderboard(StatisticType.HourTime.ToString())
+                .Then(result => leaderboardScreenController.ShowGlobalLeaderboard(result))
+                .Catch(error => mainController.ToMainMenuState());
+            StatisticService.GetPlayerLeaderboard(StatisticType.HourTime.ToString())
+                .Then(result => leaderboardScreenController.ShowPlayerLeaderboard(result))
+                .Catch(error => mainController.ToMainMenuState());
+            leaderboardScreenController.Load();
         }
 
         public override void Exit () {
             leaderboardScreenController.Hide();
-        }
-
-        public void OnGetLeaderboardSuccess (List<LeaderboardEntry> leaderboardEntries) {
-            if (leaderboardEntries == null) { // TODO: Should show a pop-up saying that the leaderboard is still empty
-                mainController.ToMainMenuState();
-            } else {
-                app.leaderboardEntries = leaderboardEntries;
-                leaderboardScreenController.Show(app.leaderboardEntries);
-            }
         }
 
         #endregion

@@ -11,7 +11,6 @@ public class App {
 
     public AppData data;
     public List<Post> posts;
-    public List<LeaderboardEntry> leaderboardEntries; // This could located inside LeaderboardState...
     public Player player = new Player();
 
     #endregion
@@ -24,10 +23,6 @@ public class App {
 
     public void SetPosts (List<Post> posts) {
         this.posts = posts;
-    }
-
-    public void SetLeaderboardEntries (List<LeaderboardEntry> leaderboardEntries) {
-        this.leaderboardEntries = leaderboardEntries;
     }
 
     public void SetPlayer(Player player) {

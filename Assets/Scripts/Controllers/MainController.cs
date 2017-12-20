@@ -8,8 +8,8 @@ public class MainController : MonoBehaviour {
 
     #region Fields / Properties
 
-    public ViewController viewController;
     public App app;
+    public ViewController viewController;
     private readonly StateMachine stateMachine = new StateMachine();
 
     #endregion
@@ -26,6 +26,8 @@ public class MainController : MonoBehaviour {
         stateMachine.Register(new BlogState(this));
         stateMachine.Register(new LeaderboardState(this));
         stateMachine.Register(new JoystickState(this));
+        stateMachine.Register(new CloudState(this));
+        stateMachine.Register(new SwipeState(this));
     }
 
     private void Start () {
@@ -67,6 +69,14 @@ public class MainController : MonoBehaviour {
 
     public void ToJoystickState () {
         stateMachine.NextState<JoystickState>();
+    }
+
+    public void ToCloudState () {
+        stateMachine.NextState<CloudState>();
+    }
+
+    public void ToSwipeState () {
+        stateMachine.NextState<SwipeState>();
     }
 
     #endregion

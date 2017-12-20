@@ -51,6 +51,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7b7357e1cc141b7a66df8170cefcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuScreenController: {fileID: 0}
-  timerScreenController: {fileID: 0}
-  blogScreenController: {fileID: 0}
+  viewController: {fileID: 0}
+  app:
+    data:
+      version: v1.0
+      author: Gonzalo
+      company: Ku Ku Ku
+    posts: []
+    leaderboardEntries:
+    - position: 0
+      playFabID: DEA14EFA2B983C6A
+      displayName: 
+      value: 7
+      avatarURL: https://scontent.xx.fbcdn.net/v/t1.0-1/12718390_997194320352659_4388223332506397860_n.jpg?oh=f0c8f2638aa864cf43554843d2a9d856&oe=5ABD427C
+      city: "M\xE1laga"
+    - position: 1
+      playFabID: C593EE2ED54601BA
+      displayName: 
+      value: 3
+      avatarURL: 
+      city: "M\xE1laga"
+    player:
+      data:
+        gamesCount: 1
+      inventory:
+        items: []
+      currencies:
+      - code: 0
+        amount: 36
+      statistics:
+      - type: 0
+        bestValue: 3
+        lastValue: 3

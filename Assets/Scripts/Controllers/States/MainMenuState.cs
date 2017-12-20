@@ -14,7 +14,7 @@ namespace States {
         public override void Enter () {
             base.Enter();
             mainMenuScreenController.Show(app.player);
-            if (app.player.inventory.HasPrizes)
+            if (app.player.inventory != null && app.player.inventory.HasPrizes)
                 RewardPlayer();
         }
 
@@ -39,6 +39,14 @@ namespace States {
             mainController.ToJoystickState();
         }
 
+        public void OnCloudButtonClickEvent(object sender, EventArgs e) {
+            mainController.ToCloudState();
+        }
+
+        public void OnSwipeButtonClickEvent (object sender, EventArgs e) {
+            mainController.ToSwipeState();
+        }
+
         #endregion
 
         #region Protected Behaviour
@@ -48,6 +56,8 @@ namespace States {
             MainMenuScreenController.BlogButtonClickEvent += OnBlogButtonClickEvent;
             MainMenuScreenController.LeaderboardButtonClickEvent += OnLeaderboardButtonClickEvent;
             MainMenuScreenController.JoystickButtonClickEvent += OnJoystickButtonClickEvent;
+            MainMenuScreenController.CloudButtonClickEvent += OnCloudButtonClickEvent;
+            MainMenuScreenController.SwipeButtonClickEvent += OnSwipeButtonClickEvent;
         }
 
         protected override void RemoveListeners () {
@@ -55,6 +65,7 @@ namespace States {
             MainMenuScreenController.BlogButtonClickEvent -= OnBlogButtonClickEvent;
             MainMenuScreenController.LeaderboardButtonClickEvent -= OnLeaderboardButtonClickEvent;
             MainMenuScreenController.JoystickButtonClickEvent -= OnJoystickButtonClickEvent;
+            MainMenuScreenController.SwipeButtonClickEvent -= OnSwipeButtonClickEvent;
         }
 
         #endregion

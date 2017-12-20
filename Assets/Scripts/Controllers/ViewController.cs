@@ -12,6 +12,8 @@ public class ViewController : MonoBehaviour {
     public BlogScreenController blogScreenController;
     public LeaderboardScreenController leaderboardScreenController;
     public JoystickScreenController joystickScreenController;
+    public CloudScreenController cloudScreenController;
+    public SwipeScreenController swipeScreenController;
     public PopUpController popUpController;
     public FooterController footerController;
 
@@ -26,6 +28,8 @@ public class ViewController : MonoBehaviour {
         blogScreenController.Init();
         leaderboardScreenController.Init();
         joystickScreenController.Init();
+        cloudScreenController.Init();
+        swipeScreenController.Init();
         footerController.Init();
         popUpController.Init();
     }

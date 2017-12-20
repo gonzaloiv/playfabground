@@ -48,8 +48,8 @@ public class PlayerService : BaseService {
                 if (statistics != null) player.SetStatistics(statistics);
                 Inventory inventory = ItemService.InventoryFromItemInstanceList(result.InfoResultPayload.UserInventory);
                 if (inventory != null) player.SetInventory(inventory);
-                PlayerData playerData = DataService.PlayerDataFromDictionary(result.InfoResultPayload.UserData);
-                if (playerData != null) player.SetData(playerData);
+                //PlayerData playerData = DataService.PlayerDataFromDictionary(result.InfoResultPayload.UserData);
+                //if (playerData != null) player.SetData(playerData);
                 GetPlayerSuccessBallback(result);
                 promise.Resolve(player);
             } catch (Exception ex) {
