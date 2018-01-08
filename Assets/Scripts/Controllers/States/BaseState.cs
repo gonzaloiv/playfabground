@@ -18,6 +18,7 @@ namespace States {
         protected JoystickScreenController joystickScreenController;
         protected CloudScreenController cloudScreenController;
         protected SwipeScreenController swipeScreenController;
+        protected WaitingScreenController waitingScreenController;
         protected FooterController footerController;
         protected PopUpController popUpController;
         protected App app;
@@ -37,6 +38,7 @@ namespace States {
             this.joystickScreenController = mainController.viewController.joystickScreenController;
             this.cloudScreenController = mainController.viewController.cloudScreenController;
             this.swipeScreenController = mainController.viewController.swipeScreenController;
+            this.waitingScreenController = mainController.viewController.waitingScreenController;
             this.footerController = mainController.viewController.footerController;
             this.popUpController = mainController.viewController.popUpController;
             this.app = mainController.app;

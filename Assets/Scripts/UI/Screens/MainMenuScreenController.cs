@@ -17,6 +17,7 @@ public class MainMenuScreenController : BaseScreenController {
     [SerializeField] private Button joystickButton;
     [SerializeField] private Button cloudButton;
     [SerializeField] private Button swipeButton;
+    [SerializeField] private Button waitingButton;
 
     #endregion
 
@@ -28,6 +29,7 @@ public class MainMenuScreenController : BaseScreenController {
     public static event EventHandler JoystickButtonClickEvent;
     public static event EventHandler CloudButtonClickEvent;
     public static event EventHandler SwipeButtonClickEvent;
+    public static event EventHandler WaitingButtonClickEvent;
 
     #endregion
 
@@ -41,6 +43,7 @@ public class MainMenuScreenController : BaseScreenController {
         joystickButton.onClick.AddListener(InvokeJoystickButtonClickEvent);
         cloudButton.onClick.AddListener(InvokeCloudButtonClickEvent);
         swipeButton.onClick.AddListener(InvokeSwipeButtonClickEvent);
+        waitingButton.onClick.AddListener(InvokeWaitingButtonEvent);
     }
 
     public void Show (Player player) {
@@ -72,6 +75,10 @@ public class MainMenuScreenController : BaseScreenController {
 
     public void InvokeSwipeButtonClickEvent () {
         SwipeButtonClickEvent.Invoke(swipeButton, null);
+    }
+
+    public void InvokeWaitingButtonEvent() {
+        WaitingButtonClickEvent.Invoke(waitingButton, null);
     }
 
     #endregion

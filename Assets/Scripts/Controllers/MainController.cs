@@ -28,6 +28,7 @@ public class MainController : MonoBehaviour {
         stateMachine.Register(new JoystickState(this));
         stateMachine.Register(new CloudState(this));
         stateMachine.Register(new SwipeState(this));
+        stateMachine.Register(new WaitingState(this));
     }
 
     private void Start () {
@@ -77,6 +78,10 @@ public class MainController : MonoBehaviour {
 
     public void ToSwipeState () {
         stateMachine.NextState<SwipeState>();
+    }
+
+    public void ToWaitingState () {
+        stateMachine.NextState<WaitingState>();
     }
 
     #endregion

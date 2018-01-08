@@ -47,6 +47,10 @@ namespace States {
             mainController.ToSwipeState();
         }
 
+        public void OnWaitingButtonClickEvent(object sender, EventArgs e) {
+            mainController.ToWaitingState();
+        }
+
         #endregion
 
         #region Protected Behaviour
@@ -58,6 +62,7 @@ namespace States {
             MainMenuScreenController.JoystickButtonClickEvent += OnJoystickButtonClickEvent;
             MainMenuScreenController.CloudButtonClickEvent += OnCloudButtonClickEvent;
             MainMenuScreenController.SwipeButtonClickEvent += OnSwipeButtonClickEvent;
+            MainMenuScreenController.WaitingButtonClickEvent += OnWaitingButtonClickEvent;
         }
 
         protected override void RemoveListeners () {
@@ -66,6 +71,7 @@ namespace States {
             MainMenuScreenController.LeaderboardButtonClickEvent -= OnLeaderboardButtonClickEvent;
             MainMenuScreenController.JoystickButtonClickEvent -= OnJoystickButtonClickEvent;
             MainMenuScreenController.SwipeButtonClickEvent -= OnSwipeButtonClickEvent;
+            MainMenuScreenController.WaitingButtonClickEvent -= OnWaitingButtonClickEvent;
         }
 
         #endregion
