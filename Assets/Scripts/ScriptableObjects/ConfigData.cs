@@ -15,5 +15,6 @@ public class ConfigData : ScriptableObject {
 
     [Header("Statistics")]
     public int maxLeaderboardEntries = 10;
+    public int bestScorePrize = 5;
 
 }

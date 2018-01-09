@@ -13,10 +13,10 @@ namespace States {
         public override void Enter () {
             StatisticService.GetLeaderboard(StatisticType.HourTime.ToString())
                 .Then(result => leaderboardScreenController.ShowGlobalLeaderboard(result))
-                .Catch(error => mainController.ToMainMenuState());
-            StatisticService.GetPlayerLeaderboard(StatisticType.HourTime.ToString())
+                .Catch(error => leaderboardScreenController.HideGlobalLeaderboard());
+            StatisticService.GetPlayerLeaderboard(StatisticType.HourTime.ToString(), 1)
                 .Then(result => leaderboardScreenController.ShowPlayerLeaderboard(result))
-                .Catch(error => mainController.ToMainMenuState());
+                .Catch(error => leaderboardScreenController.HidePlayerLeaderboard());
             leaderboardScreenController.Load();
         }
 

@@ -16,26 +16,29 @@ public class StatisticService : BaseService {
         var request = new GetLeaderboardRequest { StatisticName = statisticName, MaxResultsCount = Config.maxLeaderboardEntries };
         request.ProfileConstraints = new PlayerProfileViewConstraints { ShowAvatarUrl = true, ShowLocations = true };
         PlayFabClientAPI.GetLeaderboard(request, (result) => {
-            try {
-                promise.Resolve(LeaderboardEntriesFromLeaderboard(result.Leaderboard));
+            List<LeaderboardEntry> entries = LeaderboardEntriesFromLeaderboard(result.Leaderboard);
+            if (entries != null) {
+                promise.Resolve(entries);
                 GetLeaderboardSuccessCallback(result);
-            } catch (Exception ex) {
-                promise.Reject(ex);
+            } else {
+                promise.Reject(new Exception("There's a problem with the leadeboard."));
             }
         }, ErrorCallback);
         return promise;
     }
 
-    public static Promise<List<LeaderboardEntry>> GetPlayerLeaderboard (string statisticName) {
+    public static Promise<List<LeaderboardEntry>> GetPlayerLeaderboard (string statisticName, int amount = 0) {
         var promise = new Promise<List<LeaderboardEntry>>();
-        var request = new GetLeaderboardAroundPlayerRequest { StatisticName = statisticName, MaxResultsCount = Config.maxLeaderboardEntries };
+        var request = new GetLeaderboardAroundPlayerRequest { StatisticName = statisticName };
+        request.MaxResultsCount = amount == 0 ? Config.maxLeaderboardEntries : amount;
         request.ProfileConstraints = new PlayerProfileViewConstraints { ShowAvatarUrl = true, ShowLocations = true };
         PlayFabClientAPI.GetLeaderboardAroundPlayer(request, (result) => {
-            try {
-                promise.Resolve(LeaderboardEntriesFromLeaderboard(result.Leaderboard));
+            List<LeaderboardEntry> entries = LeaderboardEntriesFromLeaderboard(result.Leaderboard);
+            if (entries != null) {
+                promise.Resolve(entries);
                 GetPlayerLeaderboardSuccessCallback(result);
-            } catch (Exception ex) {
-                promise.Reject(ex);
+            } else {
+                promise.Reject(new Exception("There's a problem with the player leadeboard."));
             }
         }, ErrorCallback);
         return promise;
@@ -71,6 +74,8 @@ public class StatisticService : BaseService {
     }
 
     public static List<LeaderboardEntry> LeaderboardEntriesFromLeaderboard (List<PlayerLeaderboardEntry> leaderboardEntries) {
+        //if (leaderboardEntries == null || !leaderboardEntries.Any())
+        //return null;
         List<LeaderboardEntry> entries = new List<LeaderboardEntry>();
         leaderboardEntries.ForEach(entry => {
             LeaderboardEntry newEntry = new LeaderboardEntry(entry.Position, entry.PlayFabId, entry.DisplayName, entry.StatValue);

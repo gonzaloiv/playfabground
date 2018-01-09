@@ -26,7 +26,7 @@ public class Statistic {
     }
 
     public bool IsBestValue (int value) {
-        return value > bestValue;
+        return value > bestValue && bestValue > 0;
     }
 
     public void SetBestValue (int value) {

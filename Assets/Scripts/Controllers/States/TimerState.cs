@@ -24,7 +24,12 @@ namespace States {
             CurrencyService.SubstractCurrency(CurrencyCode.RP, Config.ruppeesPerGame)
                            .Then(() => CurrencyService.GetCurrency(CurrencyCode.RP))
                            .Then(currency => app.player.SetCurrency(currency));
-            SetPlayerTime(time);
+            if (BestScorePrizeSystem.CanApply(app.player, time))
+                BestScorePrizeSystem.Apply(app.player, OnBestScoreSystemApply);
+        }
+
+        public void OnBestScoreSystemApply () {
+            popUpController.Show("You've got " + Config.bestScorePrize.ToString() + " rupees!");
         }
 
         #endregion
@@ -37,20 +42,6 @@ namespace States {
 
         protected override void RemoveListeners () {
             TimerScreenController.TimerStopEvent -= OnTimerStopEvent;
-        }
-
-        #endregion
-
-        #region Private Behavriour
-
-        private void SetPlayerTime (int time) {
-            Statistic playerTime = app.player.GetStatistic(StatisticType.HourTime);
-            playerTime.SetLastValue(time);
-            if (playerTime.IsBestValue(time)) {
-                playerTime.SetBestValue(time);
-                StatisticService.UpdateStatistic(StatisticType.HourTime, time);
-            }
-            app.player.SetStatistic(playerTime);
         }
 
         #endregion

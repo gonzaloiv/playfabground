@@ -19,7 +19,7 @@ public class CurrencyService : BaseService {
                 Currency currency = new Currency(currencyCode, result.VirtualCurrency[currencyCode.ToString()]);
                 promise.Resolve(currency);
                 GetCurrencySuccessCallback(result);
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 promise.Reject(ex);
             }
         }, ErrorCallback);
@@ -30,6 +30,16 @@ public class CurrencyService : BaseService {
         var promise = new Promise();
         var request = new SubtractUserVirtualCurrencyRequest { VirtualCurrency = currencyCode.ToString(), Amount = amount };
         PlayFabClientAPI.SubtractUserVirtualCurrency(request, (result) => {
+            SuccessCallback(result);
+            promise.Resolve();
+        }, ErrorCallback);
+        return promise;
+    }
+
+    public static Promise AddCurrency (CurrencyCode currencyCode, int amount) {
+        var promise = new Promise();
+        var request = new AddUserVirtualCurrencyRequest { VirtualCurrency = currencyCode.ToString(), Amount = amount };
+        PlayFabClientAPI.AddUserVirtualCurrency(request, (result) => {
             SuccessCallback(result);
             promise.Resolve();
         }, ErrorCallback);

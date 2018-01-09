@@ -11,6 +11,7 @@ public static class Config {
     public static string playFabTitleId;
     public static int ruppeesPerGame;
     public static int maxLeaderboardEntries;
+    public static int bestScorePrize;
 
     #endregion
 
@@ -22,6 +23,7 @@ public static class Config {
         playFabTitleId = configData.playFabTitleId;
         ruppeesPerGame = configData.ruppeesPerGame;
         maxLeaderboardEntries = configData.maxLeaderboardEntries;
+        bestScorePrize = configData.bestScorePrize;
     }
 
     #endregion

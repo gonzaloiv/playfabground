@@ -20,9 +20,17 @@ public class LeaderboardScreenController : BaseScreenController {
         globalLeaderboardEntryPanelController.Show(leaderboardEntries[0]);
     }
 
+    public void HideGlobalLeaderboard () {
+        globalLeaderboardEntryPanelController.Hide();
+    }
+
     public void ShowPlayerLeaderboard (List<LeaderboardEntry> leaderboardEntries) {
         base.Show();
         playerLeaderboardEntryPanelController.Show(leaderboardEntries[0]);
+    }
+
+    public void HidePlayerLeaderboard () {
+        playerLeaderboardEntryPanelController.Hide();
     }
 
     #endregion
