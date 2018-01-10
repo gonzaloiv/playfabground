@@ -74,8 +74,8 @@ public class StatisticService : BaseService {
     }
 
     public static List<LeaderboardEntry> LeaderboardEntriesFromLeaderboard (List<PlayerLeaderboardEntry> leaderboardEntries) {
-        //if (leaderboardEntries == null || !leaderboardEntries.Any())
-        //return null;
+        if (leaderboardEntries == null || !leaderboardEntries.Any())
+            return null;
         List<LeaderboardEntry> entries = new List<LeaderboardEntry>();
         leaderboardEntries.ForEach(entry => {
             LeaderboardEntry newEntry = new LeaderboardEntry(entry.Position, entry.PlayFabId, entry.DisplayName, entry.StatValue);

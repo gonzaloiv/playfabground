@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class BlogScreenController : BaseScreenController  {
+public class BlogScreenController : BaseScreenController {
 
     #region Fields / Properties
 
     [SerializeField] private Text titleText;
     [SerializeField] private Text bodyText;
-	[SerializeField] private Button leftButton;
+    [SerializeField] private TextCarouselBehaviour textCarouselBehaviour;
+    [SerializeField] private Button leftButton;
     [SerializeField] private Button rightButton;
 
     private List<Post> posts;
@@ -20,8 +21,9 @@ public class BlogScreenController : BaseScreenController  {
 
     #region Public Behaviour
 
-    public override void Init() {
+    public override void Init () {
         base.Init();
+        textCarouselBehaviour.Init();
         rightButton.onClick.AddListener(OnRightButtonClick);
         leftButton.onClick.AddListener(OnLeftButtonClick);
     }
@@ -32,7 +34,12 @@ public class BlogScreenController : BaseScreenController  {
         ShowCurrentPost();
     }
 
-    public void OnRightButtonClick() {
+    public override void Hide () {
+        base.Hide();
+        textCarouselBehaviour.Hide();
+    }
+
+    public void OnRightButtonClick () {
         currentPostIndex = (currentPostIndex + 1) % posts.Count;
         ShowCurrentPost();
     }
@@ -48,7 +55,8 @@ public class BlogScreenController : BaseScreenController  {
 
     private void ShowCurrentPost () {
         titleText.text = posts[currentPostIndex].title;
-        bodyText.text = posts [currentPostIndex].body;
+        bodyText.text = posts[currentPostIndex].body;
+        textCarouselBehaviour.Show(posts[currentPostIndex].body);
     }
 
     #endregion
