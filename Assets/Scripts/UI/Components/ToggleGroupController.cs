@@ -32,7 +32,11 @@ public class ToggleGroupController : UIController {
         OnClick(buttons[index]);
     }
 
-    public void OnClick (Button button) {
+    #endregion
+
+    #region Private Behaviour
+
+    private void OnClick (Button button) {
         buttons.ForEach(btn => btn.targetGraphic.color = btn.colors.normalColor);
         button.targetGraphic.color = button.colors.pressedColor;
         ToggleButtonClickEvent.Invoke(buttons.IndexOf(button));

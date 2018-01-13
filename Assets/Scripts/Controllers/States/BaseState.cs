@@ -20,6 +20,7 @@ namespace States {
         protected SwipeScreenController swipeScreenController;
         protected WaitingScreenController waitingScreenController;
         protected ToggleScreenController toggleScreenController;
+        protected VideoScreenController videoScreenController;
         protected FooterController footerController;
         protected PopUpController popUpController;
         protected App app;
@@ -41,6 +42,7 @@ namespace States {
             this.swipeScreenController = mainController.viewController.swipeScreenController;
             this.waitingScreenController = mainController.viewController.waitingScreenController;
             this.toggleScreenController = mainController.viewController.toggleScreenController;
+            this.videoScreenController = mainController.viewController.videoScreenController;
             this.footerController = mainController.viewController.footerController;
             this.popUpController = mainController.viewController.popUpController;
             this.app = mainController.app;

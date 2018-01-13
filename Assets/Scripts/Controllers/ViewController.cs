@@ -16,6 +16,7 @@ public class ViewController : MonoBehaviour {
     public SwipeScreenController swipeScreenController;
     public WaitingScreenController waitingScreenController;
     public ToggleScreenController toggleScreenController;
+    public VideoScreenController videoScreenController;
     public PopUpController popUpController;
     public FooterController footerController;
 
@@ -34,6 +35,7 @@ public class ViewController : MonoBehaviour {
         swipeScreenController.Init();
         waitingScreenController.Init();
         toggleScreenController.Init();
+        videoScreenController.Init();
         footerController.Init();
         popUpController.Init();
     }

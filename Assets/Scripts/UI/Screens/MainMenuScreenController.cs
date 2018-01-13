@@ -19,19 +19,21 @@ public class MainMenuScreenController : BaseScreenController {
     [SerializeField] private Button swipeButton;
     [SerializeField] private Button waitingButton;
     [SerializeField] private Button toggleButton;
+    [SerializeField] private Button videoButton;
 
     #endregion
 
     #region Event
 
-    public static event EventHandler TimerButtonClickEvent;
-    public static event EventHandler BlogButtonClickEvent;
-    public static event EventHandler LeaderboardButtonClickEvent;
-    public static event EventHandler JoystickButtonClickEvent;
-    public static event EventHandler CloudButtonClickEvent;
-    public static event EventHandler SwipeButtonClickEvent;
-    public static event EventHandler WaitingButtonClickEvent;
-    public static event EventHandler ToggleButtonClickEvent;
+    public static event EventHandler TimerButtonClickEvent = delegate { };
+    public static event EventHandler BlogButtonClickEvent = delegate { };
+    public static event EventHandler LeaderboardButtonClickEvent = delegate { };
+    public static event EventHandler JoystickButtonClickEvent = delegate { };
+    public static event EventHandler CloudButtonClickEvent = delegate { };
+    public static event EventHandler SwipeButtonClickEvent = delegate { };
+    public static event EventHandler WaitingButtonClickEvent = delegate { };
+    public static event EventHandler ToggleButtonClickEvent = delegate { };
+    public static event EventHandler VideoButtonClickEvent = delegate { };
 
     #endregion
 
@@ -47,6 +49,7 @@ public class MainMenuScreenController : BaseScreenController {
         swipeButton.onClick.AddListener(InvokeSwipeButtonClickEvent);
         waitingButton.onClick.AddListener(InvokeWaitingButtonEvent);
         toggleButton.onClick.AddListener(InvokeToggleButtonClickEvent);
+        videoButton.onClick.AddListener(InvokeVideoButtonClickEvent);
     }
 
     public void Show (Player player) {
@@ -86,6 +89,10 @@ public class MainMenuScreenController : BaseScreenController {
 
     public void InvokeToggleButtonClickEvent () {
         ToggleButtonClickEvent.Invoke(toggleButton, null);
+    }
+
+    public void InvokeVideoButtonClickEvent () {
+        VideoButtonClickEvent.Invoke(videoButton, null);
     }
 
     #endregion

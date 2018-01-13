@@ -16,7 +16,11 @@ public class BestScoreSystem {
         Statistic playerTime = player.GetStatistic(StatisticType.HourTime);
         playerTime.SetBestValue(playerTime.lastValue);
         player.SetStatistic(playerTime);
-        StatisticService.UpdateStatistic(playerTime);
+        StatisticService.UpdateStatistic(playerTime)
+            .Then(() => {
+                if (OnApply != null)
+                    OnApply();
+            });
     }
 
     #endregion

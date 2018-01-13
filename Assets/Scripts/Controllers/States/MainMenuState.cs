@@ -14,8 +14,8 @@ namespace States {
         public override void Enter () {
             base.Enter();
             mainMenuScreenController.Show(app.player);
-            if (app.player.inventory != null && app.player.inventory.HasPrizes)
-                RewardPlayer();
+            if (PrizeTableSystem.CanApply(app.player))
+                PrizeTableSystem.Apply(app.player, OnPrizeTableSystemApply);
         }
 
         public override void Exit () {
@@ -55,6 +55,14 @@ namespace States {
             mainController.ToToggleState();
         }
 
+        public void OnVideoButtonClickEvent (object sender, EventArgs e) {
+            mainController.ToVideoState();
+        }
+
+        public void OnPrizeTableSystemApply (Item prize) {
+            popUpController.Show("You've got a prize\n" + prize.name);
+        }
+
         #endregion
 
         #region Protected Behaviour
@@ -68,6 +76,7 @@ namespace States {
             MainMenuScreenController.SwipeButtonClickEvent += OnSwipeButtonClickEvent;
             MainMenuScreenController.WaitingButtonClickEvent += OnWaitingButtonClickEvent;
             MainMenuScreenController.ToggleButtonClickEvent += OnToggleButtonClickEvent;
+            MainMenuScreenController.VideoButtonClickEvent += OnVideoButtonClickEvent;
         }
 
         protected override void RemoveListeners () {
@@ -78,19 +87,7 @@ namespace States {
             MainMenuScreenController.SwipeButtonClickEvent -= OnSwipeButtonClickEvent;
             MainMenuScreenController.WaitingButtonClickEvent -= OnWaitingButtonClickEvent;
             MainMenuScreenController.ToggleButtonClickEvent -= OnToggleButtonClickEvent;
-        }
-
-        #endregion
-
-        #region Private Behaviour
-
-        private void RewardPlayer () { // This could be a State by itself
-            Item prize = app.player.inventory.Prizes[0];
-            popUpController.Show("You've got a prize\n" + prize.name);
-            ItemService.ConsumeItem(prize, 1).Then(() => {
-                ItemService.GetInventory().Then(inventory => app.player.SetInventory(inventory));
-                CurrencyService.GetCurrency(CurrencyCode.RP).Then(currency => app.player.SetCurrency(currency));
-            });
+            MainMenuScreenController.VideoButtonClickEvent -= OnVideoButtonClickEvent;
         }
 
         #endregion

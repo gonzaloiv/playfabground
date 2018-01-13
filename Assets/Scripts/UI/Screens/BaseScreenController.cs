@@ -19,9 +19,23 @@ public class BaseScreenController : UIController {
 
     public override void Show () {
         base.Show();
+        AddListeners();
         if (loaderController != null)
             loaderController.Hide();
     }
+
+    public override void Hide () {
+        base.Hide();
+        RemoveListeners();
+    }
+
+    #endregion
+
+    #region Protected Behaviour
+
+    protected virtual void AddListeners () { }
+
+    protected virtual void RemoveListeners () { }
 
     #endregion
 

@@ -30,6 +30,7 @@ public class MainController : MonoBehaviour {
         stateMachine.Register(new SwipeState(this));
         stateMachine.Register(new WaitingState(this));
         stateMachine.Register(new ToggleState(this));
+        stateMachine.Register(new VideoState(this));
     }
 
     private void Start () {
@@ -87,6 +88,10 @@ public class MainController : MonoBehaviour {
 
     public void ToToggleState () {
         stateMachine.NextState<ToggleState>();
+    }
+
+    public void ToVideoState () {
+        stateMachine.NextState<VideoState>();
     }
 
     #endregion
