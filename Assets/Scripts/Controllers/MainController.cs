@@ -29,6 +29,7 @@ public class MainController : MonoBehaviour {
         stateMachine.Register(new CloudState(this));
         stateMachine.Register(new SwipeState(this));
         stateMachine.Register(new WaitingState(this));
+        stateMachine.Register(new ToggleState(this));
     }
 
     private void Start () {
@@ -82,6 +83,10 @@ public class MainController : MonoBehaviour {
 
     public void ToWaitingState () {
         stateMachine.NextState<WaitingState>();
+    }
+
+    public void ToToggleState () {
+        stateMachine.NextState<ToggleState>();
     }
 
     #endregion

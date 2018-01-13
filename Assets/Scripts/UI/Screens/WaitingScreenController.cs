@@ -25,12 +25,8 @@ public class WaitingScreenController : BaseScreenController {
 
     public override void Init () {
         base.Init();
-        batteryButton.onClick.AddListener(() => TaskSystem.RunOne(new BatteryReloadTask(SetWaitingTimeText, InvokeBatteryReloadTaskCompletedEvent)));
+        batteryButton.onClick.AddListener(() => TaskSystem.RunOne(new BatteryReloadTask(TaskSystem.Instance, SetWaitingTimeText, InvokeBatteryReloadTaskCompletedEvent)));
     }
-
-    #endregion
-
-    #region Public Behaviour
 
     public void SetWaitingTimeText (int count) {
         this.waitingTimeText.text = count.ToString();

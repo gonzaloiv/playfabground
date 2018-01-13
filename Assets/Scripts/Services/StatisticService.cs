@@ -58,10 +58,10 @@ public class StatisticService : BaseService {
         return promise;
     }
 
-    public static Promise UpdateStatistic (StatisticType statisticType, int value) {
+    public static Promise UpdateStatistic (Statistic statistic) {
         var promise = new Promise();
         var request = new UpdatePlayerStatisticsRequest();
-        request.Statistics = new List<StatisticUpdate>() { new StatisticUpdate { StatisticName = statisticType.ToString(), Value = value } };
+        request.Statistics = new List<StatisticUpdate>() { new StatisticUpdate { StatisticName = statistic.type.ToString(), Value = statistic.bestValue } };
         PlayFabClientAPI.UpdatePlayerStatistics(request, (result) => {
             try {
                 UpdateStatisticSuccessCallback(result);

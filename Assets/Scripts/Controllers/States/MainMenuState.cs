@@ -39,7 +39,7 @@ namespace States {
             mainController.ToJoystickState();
         }
 
-        public void OnCloudButtonClickEvent(object sender, EventArgs e) {
+        public void OnCloudButtonClickEvent (object sender, EventArgs e) {
             mainController.ToCloudState();
         }
 
@@ -47,8 +47,12 @@ namespace States {
             mainController.ToSwipeState();
         }
 
-        public void OnWaitingButtonClickEvent(object sender, EventArgs e) {
+        public void OnWaitingButtonClickEvent (object sender, EventArgs e) {
             mainController.ToWaitingState();
+        }
+
+        public void OnToggleButtonClickEvent (object sender, EventArgs e) {
+            mainController.ToToggleState();
         }
 
         #endregion
@@ -63,6 +67,7 @@ namespace States {
             MainMenuScreenController.CloudButtonClickEvent += OnCloudButtonClickEvent;
             MainMenuScreenController.SwipeButtonClickEvent += OnSwipeButtonClickEvent;
             MainMenuScreenController.WaitingButtonClickEvent += OnWaitingButtonClickEvent;
+            MainMenuScreenController.ToggleButtonClickEvent += OnToggleButtonClickEvent;
         }
 
         protected override void RemoveListeners () {
@@ -72,6 +77,7 @@ namespace States {
             MainMenuScreenController.JoystickButtonClickEvent -= OnJoystickButtonClickEvent;
             MainMenuScreenController.SwipeButtonClickEvent -= OnSwipeButtonClickEvent;
             MainMenuScreenController.WaitingButtonClickEvent -= OnWaitingButtonClickEvent;
+            MainMenuScreenController.ToggleButtonClickEvent -= OnToggleButtonClickEvent;
         }
 
         #endregion

@@ -18,8 +18,8 @@ public class Task {
 
     #region Public Behaviour
 
-    public Task () {
-        this.parent = TaskSystem.Instance;
+    public Task (MonoBehaviour parent) {
+        this.parent = parent;
     }
 
     public virtual void Run () {

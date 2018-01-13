@@ -21,9 +21,8 @@ public class TaskSystem : Singleton<TaskSystem> {
     public static void RunOne (Task task) {
         Task currentTask;
         tasks.TryGetValue(task.GetType(), out currentTask);
-        if (currentTask != null) {
-            if (!currentTask.IsRunning)
-                tasks[task.GetType()].Run();
+        if (currentTask != null && !currentTask.IsRunning) {
+            tasks[task.GetType()].Run();
         } else {
             tasks.Add(task.GetType(), task);
             task.Run();

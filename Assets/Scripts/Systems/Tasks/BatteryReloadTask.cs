@@ -13,7 +13,7 @@ public class BatteryReloadTask : Task {
 
     #region Public Behaviour
 
-    public BatteryReloadTask (Action<int> OnTick = null, Action OnComplete = null) : base() {
+    public BatteryReloadTask (MonoBehaviour parent, Action<int> OnTick = null, Action OnComplete = null) : base(parent) {
         this.OnTick = OnTick;
         this.OnComplete = OnComplete;
     }

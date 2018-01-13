@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class BestScorePrizeSystem {
+public class BestScoreSystem {
 
     #region Public Behaviour
 
@@ -13,13 +13,10 @@ public class BestScorePrizeSystem {
     }
 
     public static void Apply (Player player, Action OnApply = null) {
-        CurrencyService.AddCurrency(CurrencyCode.RP, Config.bestScorePrize)
-           .Then(() => CurrencyService.GetCurrency(CurrencyCode.RP))
-           .Then((result) => {
-               player.SetCurrency(result);
-               if (OnApply != null)
-                   OnApply();
-           });
+        Statistic playerTime = player.GetStatistic(StatisticType.HourTime);
+        playerTime.SetBestValue(playerTime.lastValue);
+        player.SetStatistic(playerTime);
+        StatisticService.UpdateStatistic(playerTime);
     }
 
     #endregion

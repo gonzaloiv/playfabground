@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchMode: 1
   playFabTitleId: 7FB6
-  deviceId: fasfas24
+  deviceId: lollol
   ruppeesPerGame: 1
   maxLeaderboardEntries: 10
+  bestScorePrize: 5

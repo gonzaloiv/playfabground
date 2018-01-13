@@ -36,6 +36,7 @@ public class TextCarouselBehaviour : UIController {
 
     public void Show (string text) {
         base.Show();
+        carouselText.rectTransform.anchoredPosition = new Vector3(rectTransform.sizeDelta.x, 0, 0);
         carouselText.text = text;
     }
 
