@@ -8,7 +8,6 @@ public static class Config {
 
     public static LaunchMode launchMode;
     public static string deviceId;
-    public static string playFabTitleId;
     public static int ruppeesPerGame;
     public static int maxLeaderboardEntries;
     public static int bestScorePrize;
@@ -20,7 +19,6 @@ public static class Config {
     public static void Init (ConfigData configData) {
         launchMode = configData.launchMode;
         deviceId = string.IsNullOrEmpty(configData.deviceId) ? SystemInfo.deviceUniqueIdentifier : configData.deviceId;
-        playFabTitleId = configData.playFabTitleId;
         ruppeesPerGame = configData.ruppeesPerGame;
         maxLeaderboardEntries = configData.maxLeaderboardEntries;
         bestScorePrize = configData.bestScorePrize;

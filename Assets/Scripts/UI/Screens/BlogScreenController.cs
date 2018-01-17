@@ -45,7 +45,7 @@ public class BlogScreenController : BaseScreenController {
     }
 
     public void OnLeftButtonClick () {
-        currentPostIndex = (currentPostIndex - 1) % posts.Count;
+        currentPostIndex = Mathf.Abs((currentPostIndex - 1) % posts.Count);
         ShowCurrentPost();
     }
 

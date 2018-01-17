@@ -7,7 +7,6 @@ public class ConfigData : ScriptableObject {
 
     [Header("Game")]
     public LaunchMode launchMode;
-    public string playFabTitleId;
     public string deviceId;
 
     [Header("Virtual Currency")]
